@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+
+            <!-- Header Start -->
+            <div class="container-fluid bg-breadcrumb">
+                <div class="container text-center py-5" style="max-width: 900px;">
+                    <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">About Us</h4>
+                    <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                        <li class="breadcrumb-item active text-primary">About</li>
+                    </ol>    
+                </div>
+            </div>
+            <!-- Header End -->
+        </div>
+        <!-- Navbar & Hero End -->
+
+       <!-- About Start -->
+<div class="container-fluid about py-5">
+    <div class="container py-5">
+        <div class="row g-5 align-items-center">
+            <div class="col-xl-7 wow fadeInLeft" data-wow-delay="0.2s">
+                <div>
+                    <h4 class="text-primary">About Us</h4>
+                    <h1 class="display-5 mb-4">Development Project Planning Solution Limited</h1>
+                    <p class="mb-4">
+                        Development Project Planning Solution Limited is a company based in Zanzibar, that specializes in Project Development and all project-related activities, including mapping and architectural drawings.
+                    </p>
+                    <p class="mb-4">
+                        Additionally, the company offers short-term training in various fields such as Management and Leadership, Customer Service, Project Proposal Writing, and Grant Project Proposal Writing. The company also handles all aspects of project development, including writing Business Plans, Strategic Plans, and Action Plans.
+                    </p>
+                    <div class="row g-4">
+                        <div class="col-md-6 col-lg-6 col-xl-6">
+                            <div class="d-flex">
+                                <div><i class="fas fa-map-marker-alt fa-3x text-primary"></i></div>
+                                <div class="ms-4">
+                                    <h4>Our Location</h4>
+                                    <p>Fuoni, Zanzibar - Tanzania</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-xl-6">
+                            <div class="d-flex">
+                                <div><i class="bi bi-bookmark-heart-fill fa-3x text-primary"></i></div>
+                                <div class="ms-4">
+                                    <h4>Our Services</h4>
+                                    <p>Project Planning, Consultancy, Training & Architectural Design</p>
+                                </div>
+                            </div>
+                        </div>
+                      
+                        <div class="col-sm-6">
+                            <div class="d-flex">
+                                <i class="fas fa-phone-alt fa-2x text-primary me-4"></i>
+                                <div>
+                                    <h4>Call Us</h4>
+                                    <p class="mb-0 fs-5" style="letter-spacing: 1px;">0719686864</p>
+                                    <p class="mb-0 fs-5" style="letter-spacing: 1px;">0772997018</p>
+                                </div>
+                            </div>
+                            <div class="d-flex mt-3">
+                                <i class="fas fa-envelope fa-2x text-primary me-4"></i>
+                                <div>
+                                    <h4>Email</h4>
+                                    <p class="mb-0 fs-6">projectpsolution@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-5 wow fadeInRight" data-wow-delay="0.2s">
+                <div class="bg-primary rounded position-relative overflow-hidden">
+                    <img src="{% static 'img/about-2.png' %}" class="img-fluid rounded w-100" alt="">
+                    
+                    <div class="" style="position: absolute; top: -15px; right: -15px;">
+                        <img src="{% static 'img/about-3.png' %}" class="img-fluid" style="width: 150px; height: 150px; opacity: 0.7;" alt="">
+                    </div>
+                    <div class="" style="position: absolute; top: -20px; left: 10px; transform: rotate(90deg);">
+                        <img src="{% static 'img/about-4.png' %}" class="img-fluid" style="width: 100px; height: 150px; opacity: 0.9;" alt="">
+                    </div>
+                    <div class="rounded-bottom">
+                        <img src="{% static 'img/about-5.jpg' %}" class="img-fluid rounded-bottom w-100" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+
+<!-- Certificates Start -->
+<div class="container-fluid feature pb-5">
+    <div class="container pb-5">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+            <h4 class="text-primary">Our Certifications</h4>
+            <h1 class="display-5 mb-4">Trusted & Licensed to Serve You</h1>
+            <p class="mb-0">
+                We are officially registered and licensed with the relevant authorities in Tanzania and Zanzibar.  
+                These certifications highlight our compliance, transparency, and commitment to providing reliable services 
+                for individuals, businesses, and institutions.
+            </p>
+        </div>
+        <div class="row g-4">
+            <!-- Certificate 1 -->
+            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="feature-item p-4 text-center">
+                    <div class="feature-icon p-4 mb-4">
+                        <i class="fas fa-file-alt fa-4x text-primary"></i>
+                    </div>
+                    <h4>Zanzibar Revenue Authority</h4>
+                    <p class="mb-4">
+                        Registered with the <strong>Zanzibar Revenue Authority</strong>  
+                        (TRN: Z052509532, VRN: 07103136X) confirming our compliance with VAT and tax regulations.  
+                        This certificate ensures that our operations are fully recognized and transparent.
+                    </p>
+                    <img src="{% static 'img/tax.jpeg' %}" alt="ZRA Certificate" class="img-fluid rounded shadow">
+                </div>
+            </div>
+
+            <!-- Certificate 2 -->
+            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.4s">
+                <div class="feature-item p-4 text-center">
+                    <div class="feature-icon p-4 mb-4">
+                        <i class="fas fa-briefcase fa-4x text-primary"></i>
+                    </div>
+                    <h4>Business License</h4>
+                    <p class="mb-4">
+                        Licensed by <strong>West "B" Municipal Council</strong> under Act 14, 2017.  
+                        This official business license authorizes us to operate as a consultancy firm, 
+                        further proving our legitimacy and dedication to quality service delivery.
+                    </p>
+                    <img src="{% static 'img/license.jpeg' %}" alt="Business License" class="img-fluid rounded shadow">
+                </div>
+            </div>
+
+            <!-- Certificate 3 -->
+            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.6s">
+                <div class="feature-item p-4 text-center">
+                    <div class="feature-icon p-4 mb-4">
+                        <i class="fas fa-certificate fa-4x text-primary"></i>
+                    </div>
+                    <h4>Tanzania Revenue Authority</h4>
+                    <p class="mb-4">
+                        Registered with the <strong>Tanzania Revenue Authority (TRA)</strong>,  
+                        assigned Taxpayer Identification Number (TIN: 189-201-788).  
+                        This certificate shows our compliance with national tax laws, 
+                        ensuring accountability and professionalism in every project we handle.
+                    </p>
+                    <img src="{% static 'img/tin.jpeg' %}" alt="TRA Certificate" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Certificates End -->
+
+        <!-- Team Start -->
+        <div class="container-fluid team pb-5">
+            <div class="container pb-5">
+                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+                   <h4 class="text-primary">Our Team</h4>
+                    <h1 class="display-5 mb-4">Meet Our Expert Advisers</h1>
+                    <p class="mb-0">
+                    At Development Project Planning Solution Limited, we believe that the success of every project depends on the people behind it. 
+                    Our team is made up of experienced professionals, certified consultants, and creative thinkers who are passionate about delivering 
+                    innovative and sustainable solutions. With diverse backgrounds in project management, business development, and capacity building, 
+                    our advisers work closely with clients to provide guidance, mentorship, and strategic insights that drive lasting impact.
+                    </p>
+
+                </div>
+                    <div class="row g-4">
+                        {% for member in team %}
+                        <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" 
+                            style="animation-delay: calc({{ forloop.counter0 }} * 0.2s);">
+                            <div class="team-item">
+                                <div class="team-img">
+                                    <img src="{{ member.image }}" class="img-fluid" alt="{{ member.Full_name }}">
+                                </div>
+                                <div class="team-title">
+                                    <h4 class="mb-0">{{ member.Full_name }}</h4>
+                                    <p class="mb-0">{{ member.designation }}</p>
+                                </div>
+                                <div class="team-icon">
+                                    {% if member.facebook_link %}
+                                        <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="{{ member.facebook_link }}"><i class="fab fa-facebook-f"></i></a>
+                                    {% endif %}
+                                    {% if member.twitter_link %}
+                                        <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="{{ member.twitter_link }}"><i class="fab fa-twitter"></i></a>
+                                    {% endif %}
+                                    {% if member.instagram_link %}
+                                        <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="{{ member.instagram_link }}"><i class="fab fa-instagram"></i></a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- Team End -->
+{% endblock %}
