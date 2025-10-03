@@ -1,1 +1,1 @@
-web: gunicorn dpps_project.wsgi
+web: gunicorn dpps_project.wsgi:application
