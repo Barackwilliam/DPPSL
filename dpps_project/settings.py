@@ -184,13 +184,12 @@ JAZZMIN_SETTINGS = {
         "dpps_app.Service": "fas fa-briefcase",
     },
 }
-
 JAZZMIN_UI_TWEAKS = {
-    "theme": "flatly",       # safi na ya kisasa
+    "theme": "flatly",           # theme ya default (light)
     "navbar_fixed": True,
     "sidebar_fixed": True,
     "footer_fixed": False,
     "show_ui_builder": False,
-    "brand_colour": "navbar-primary",  # rangi ya primary ya company
-    "dark_mode_theme": "darkly",       # optional dark mode
+    "brand_colour": "navbar-primary",
+    "dark_mode_theme": "darkly", # dark mode optional
 }
