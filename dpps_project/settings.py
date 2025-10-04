@@ -63,27 +63,27 @@ WSGI_APPLICATION = 'dpps_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# supabase database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',  # database name
-        'USER': 'postgres.usdiowxtnbagijibwind',  # database user
-        'PASSWORD': 'NyumbaChap',  # database password
-        'HOST': 'aws-1-us-east-2.pooler.supabase.com',  # database host
-        'PORT': '5432',  # default PostgreSQL port
-        'OPTIONS': {
-            'options': '-c statement_timeout=60000',  # 60 seconds
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# supabase database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',  # database name
+#         'USER': 'postgres.usdiowxtnbagijibwind',  # database user
+#         'PASSWORD': 'NyumbaChap',  # database password
+#         'HOST': 'aws-1-us-east-2.pooler.supabase.com',  # database host
+#         'PORT': '5432',  # default PostgreSQL port
+#         'OPTIONS': {
+#             'options': '-c statement_timeout=60000',  # 60 seconds
+#         },
+#     }
+# }
 
 
 # user=postgres.usdiowxtnbagijibwind 
