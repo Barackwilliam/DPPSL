@@ -67,11 +67,7 @@
                 </div>
                 
                 <div class="testimonial-img">
-                    {% if t.image %}
-                        <img src="{{ t.image }}" class="img-fluid" alt="{{ t.Full_name }}">
-                    {% else %}
-                        <img src="{% static 'img/default-user.png' %}" class="img-fluid" alt="{{ t.Full_name }}">
-                    {% endif %}
+                <img src="{{ t.get_image_url }}" class="img-fluid rounded-circle" alt="{{ item.full_name }}">                   
                 </div>
 
                 <div class="testimonial-text">

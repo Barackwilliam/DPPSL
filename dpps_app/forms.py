@@ -67,3 +67,16 @@ class BlogPostForm(forms.ModelForm):
         js = [
             'https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js',
         ]
+
+from .models import ContactMessage
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = ContactMessage
+        fields = ['name', 'email', 'subject', 'message']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control border-0', 'placeholder': 'Your Name'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control border-0', 'placeholder': 'Your Email'}),
+            'subject': forms.TextInput(attrs={'class': 'form-control border-0', 'placeholder': 'Subject'}),
+            'message': forms.Textarea(attrs={'class': 'form-control border-0', 'placeholder': 'Leave your message here', 'style': 'height:160px;'}),
+        }

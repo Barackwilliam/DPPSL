@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
+
 from .models import BlogPost, Service, Team, User_Testimonial
 from .models import FAQ
 
@@ -59,3 +60,18 @@ def blog_detail(request, pk):
         'post': post
     }
     return render(request, 'blog_detail.html', context)
+
+from django.contrib import messages
+from .forms import ContactForm
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your message has been sent successfully! We'll get back to you soon.")
+            return redirect('contact')  # Rudisha kwenye ukurasa wa contact
+    else:
+        form = ContactForm()
+
+    return render(request, 'contact.html', {'form': form})

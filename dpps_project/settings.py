@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-u3g_i2#nvvn*x3-p3vo7f#8ec-bz2*0&1a%f5(%&8q8a08mhtt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+        'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -74,14 +75,35 @@ WSGI_APPLICATION = 'dpps_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# supabase database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres', 
+        'USER': 'postgres.usdiowxtnbagijibwind',  
+        'PASSWORD': 'NyumbaChap', 
+        'HOST': 'aws-1-us-east-2.pooler.supabase.com',  
+        'PORT': '5432',  
+        "OPTIONS": {
+            "options": "-c statement_timeout=60000"  # 60 seconds
+        },
     }
 }
 
 
+
+# user=postgres.usdiowxtnbagijibwind 
+# password=[YOUR-PASSWORD] 
+# host=aws-1-us-east-2.pooler.supabase.com
+# port=5432
+# dbname=postgres
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
@@ -132,3 +154,56 @@ UPLOADCARE = {
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+
+
+
+
+JAZZMIN_SETTINGS = {
+    "site_title": "DPPS Ltd | Admin Dashboard",
+    "site_header": "Development Project Planning Solution Ltd",
+    "site_brand": "DPPS Ltd",
+    "welcome_sign": "Welcome to the DPPS Admin Dashboard",
+    "copyright": "© 2025 DPPS Ltd",
+    
+    # Sidebar na navigation
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "user_avatar": None,
+    "search_model": None,  # Hakuna model ya generic
+
+    # Top Menu Links (zimebadilishwa ziendane na kampuni)
+    "topmenu_links": [
+        {"name": "Home Page", "url": "/", "new_window": True},
+        {"name": "About Us", "url": "/about/", "new_window": True},
+        {"name": "Services", "url": "/services/", "new_window": True},
+        {"name": "Contact", "url": "/contact/", "new_window": True},
+    ],
+
+    # Logo na branding
+    "site_logo": None,  # Baadaye weka logo URL
+    "site_logo_classes": "img-circle",
+    "login_logo": None,
+    "login_logo_dark": None,
+
+    # Icons kwa app yako
+    "icons": {
+        "dpps_app.BlogPost": "fas fa-newspaper",
+        "dpps_app.User_Testimonial": "fas fa-comment-dots",
+        "dpps_app.ContactMessage": "fas fa-envelope",
+        "dpps_app.Service": "fas fa-briefcase",
+    },
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "flatly",       # safi na ya kisasa
+    "navbar_fixed": True,
+    "sidebar_fixed": True,
+    "footer_fixed": False,
+    "show_ui_builder": False,
+    "brand_colour": "navbar-primary",  # rangi ya primary ya company
+    "dark_mode_theme": "darkly",       # optional dark mode
+}

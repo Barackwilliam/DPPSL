@@ -45,27 +45,28 @@ class Team(models.Model):
    
 
 
-
-
 class User_Testimonial(models.Model):
-    Full_name =  models.CharField(max_length=100)
+    Full_name = models.CharField(max_length=100)
     image = models.CharField(max_length=255, blank=True, null=True)
     comment = models.TextField()   # badala ya description
-    profession = models.CharField(max_length=100) 
+    profession = models.CharField(max_length=100)
+
     def __str__(self):
-        return self. Full_name
+        return self.Full_name
 
     # Kwa Open Graph preview
     def get_og_image_url(self):
-        return f"https://ucarecdn.com/{self.image}/-/resize/1200x630/-/format/auto/"
+        if self.image:
+            return f"https://ucarecdn.com/{self.image}/-/resize/1200x630/-/format/auto/"
+        return "https://ucarecdn.com/09cf22be-f6f4-4d5a-abbd-1de08520e7e3/-/resize/1200x630/-/format/auto/"
 
     # Kwa frontend display optimized
     def get_image_url(self):
-        return f"https://ucarecdn.com/{self.image}/-/format/jpg/-/quality/smart/"
-
+        if self.image:
+            return f"https://ucarecdn.com/{self.image}/-/format/jpg/-/quality/smart/"
+        return "https://ucarecdn.com/09cf22be-f6f4-4d5a-abbd-1de08520e7e3/-/format/jpg/-/quality/smart/"
 
 from django.db import models
-
 class BlogPost(models.Model):
     title = models.CharField(max_length=200)
     category = models.CharField(max_length=100, blank=True, null=True)
@@ -81,7 +82,7 @@ class BlogPost(models.Model):
     def get_image_url(self):
         if self.image:
             return f"https://ucarecdn.com/{self.image}/-/format/jpg/-/quality/smart/"
-        return "/static/img/default-blog.jpg"
+        return "https://ucarecdn.com/09cf22be-f6f4-4d5a-abbd-1de08520e7e3/-/format/jpg/-/quality/smart/"
 
 
 from django.db import models
@@ -97,3 +98,15 @@ class FAQ(models.Model):
 
     def __str__(self):
         return self.question
+
+
+
+class ContactMessage(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    subject = models.CharField(max_length=200, blank=True, null=True)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.subject or 'No Subject'}"
