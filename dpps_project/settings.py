@@ -74,17 +74,16 @@ WSGI_APPLICATION = 'dpps_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres', 
-        'USER': 'postgres.usdiowxtnbagijibwind',  
-        'PASSWORD': 'NyumbaChap', 
-        'HOST': 'aws-1-us-east-2.pooler.supabase.com',  
-        'PORT': '5432',  
-        "OPTIONS": {
-            "options": "-c statement_timeout=60000"  # 60 seconds
+        'NAME': 'postgres',  # database name
+        'USER': 'postgres.usdiowxtnbagijibwind',  # database user
+        'PASSWORD': 'NyumbaChap',  # database password
+        'HOST': 'aws-1-us-east-2.pooler.supabase.com',  # database host
+        'PORT': '5432',  # default PostgreSQL port
+        'OPTIONS': {
+            'options': '-c statement_timeout=60000',  # 60 seconds
         },
     }
 }
-
 
 
 # user=postgres.usdiowxtnbagijibwind 
