@@ -29,7 +29,7 @@ class Team(models.Model):
     image = models.CharField(max_length=255, blank=True, null=True)  # Uploadcare image URL
     designation = models.TextField()
     facebook_link = models.URLField(max_length=300, blank=True, null=True)
-    twitter_link = models.URLField(max_length=300, blank=True, null=True)
+    twitter_link = models.URLField(max_length=300, blank=True,  null=True)
     instagram_link = models.URLField(max_length=300, blank=True, null=True)
 
     def __str__(self):

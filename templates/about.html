@@ -6,8 +6,8 @@
             <!-- Header Start -->
             <div class="container-fluid bg-breadcrumb">
                 <div class="container text-center py-5" style="max-width: 900px;">
-                    <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">About Us</h4>
-                    <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
+                    <h4 class="text-white display-4 mb-4 wow">About Us</h4>
+                    <ol class="breadcrumb d-flex justify-content-center mb-0">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                         <li class="breadcrumb-item"><a href="#">Pages</a></li>
                         <li class="breadcrumb-item active text-primary">About</li>
@@ -22,7 +22,7 @@
 <div class="container-fluid about py-5">
     <div class="container py-5">
         <div class="row g-5 align-items-center">
-            <div class="col-xl-7 wow fadeInLeft" data-wow-delay="0.2s">
+            <div class="col-xl-7 wow">
                 <div>
                     <h4 class="text-primary">About Us</h4>
                     <h1 class="display-5 mb-4">Development Project Planning Solution Limited</h1>
@@ -72,7 +72,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-5 wow fadeInRight" data-wow-delay="0.2s">
+            <div class="col-xl-5 wow">
                 <div class="bg-primary rounded position-relative overflow-hidden">
                     <img src="{% static 'img/about-2.png' %}" class="img-fluid rounded w-100" alt="">
                     
@@ -95,7 +95,7 @@
 <!-- Certificates Start -->
 <div class="container-fluid feature pb-5">
     <div class="container pb-5">
-        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+        <div class="text-center mx-auto pb-5 wow" style="max-width: 800px;">
             <h4 class="text-primary">Our Certifications</h4>
             <h1 class="display-5 mb-4">Trusted & Licensed to Serve You</h1>
             <p class="mb-0">
@@ -106,7 +106,7 @@
         </div>
         <div class="row g-4">
             <!-- Certificate 1 -->
-            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
+            <div class="col-md-6 col-lg-6 col-xl-4 wow">
                 <div class="feature-item p-4 text-center">
                     <div class="feature-icon p-4 mb-4">
                         <i class="fas fa-file-alt fa-4x text-primary"></i>
@@ -122,7 +122,7 @@
             </div>
 
             <!-- Certificate 2 -->
-            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.4s">
+            <div class="col-md-6 col-lg-6 col-xl-4 wow">
                 <div class="feature-item p-4 text-center">
                     <div class="feature-icon p-4 mb-4">
                         <i class="fas fa-briefcase fa-4x text-primary"></i>
@@ -138,7 +138,7 @@
             </div>
 
             <!-- Certificate 3 -->
-            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.6s">
+            <div class="col-md-6 col-lg-6 col-xl-4 wow">
                 <div class="feature-item p-4 text-center">
                     <div class="feature-icon p-4 mb-4">
                         <i class="fas fa-certificate fa-4x text-primary"></i>
@@ -161,7 +161,7 @@
         <!-- Team Start -->
         <div class="container-fluid team pb-5">
             <div class="container pb-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+                <div class="text-center mx-auto pb-5 wow" style="max-width: 800px;">
                    <h4 class="text-primary">Our Team</h4>
                     <h1 class="display-5 mb-4">Meet Our Expert Advisers</h1>
                     <p class="mb-0">
@@ -174,8 +174,7 @@
                 </div>
                     <div class="row g-4">
                         {% for member in team %}
-                        <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" 
-                            style="animation-delay: calc({{ forloop.counter0 }} * 0.2s);">
+                        <div class="col-md-6 col-lg-6 col-xl-3 wow">
                             <div class="team-item">
                                 <div class="team-img">
                                     <img src="{{ member.image }}" class="img-fluid" alt="{{ member.Full_name }}">
@@ -185,16 +184,22 @@
                                     <p class="mb-0">{{ member.designation }}</p>
                                 </div>
                                 <div class="team-icon">
-                                    {% if member.facebook_link %}
-                                        <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="{{ member.facebook_link }}"><i class="fab fa-facebook-f"></i></a>
-                                    {% endif %}
-                                    {% if member.twitter_link %}
-                                        <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="{{ member.twitter_link }}"><i class="fab fa-twitter"></i></a>
-                                    {% endif %}
-                                    {% if member.instagram_link %}
-                                        <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="{{ member.instagram_link }}"><i class="fab fa-instagram"></i></a>
-                                    {% endif %}
-                                </div>
+                            {% if member.facebook_link %}
+                                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="{{ member.facebook_link }}"><i class="fab fa-facebook-f"></i></a>
+                            {% else %}
+                                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="https://www.facebook.com"><i class="fab fa-facebook-f"></i></a>
+                            {% endif %}
+                            {% if member.twitter_link %}
+                                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="{{ member.twitter_link }}"><i class="fab fa-twitter"></i></a>
+                            {% else %}
+                                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="https://www.x.com"><i class="fab fa-twitter"></i></a>
+                            {% endif %}
+                            {% if member.instagram_link %}
+                                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="{{ member.instagram_link }}"><i class="fab fa-instagram"></i></a>
+                            {% else %}
+                                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="https://www.instagram.com"><i class="fab fa-instagram"></i></a>
+                            {% endif %}
+                        </div>
                             </div>
                         </div>
                     {% endfor %}

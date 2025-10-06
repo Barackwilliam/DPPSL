@@ -185,7 +185,8 @@ JAZZMIN_SETTINGS = {
     },
 }
 JAZZMIN_UI_TWEAKS = {
-    "theme": "flatly",           # theme ya default (light)
+    "theme": "darkly",           # theme ya default (light)
+    # "theme": "flatly",           
     "navbar_fixed": True,
     "sidebar_fixed": True,
     "footer_fixed": False,

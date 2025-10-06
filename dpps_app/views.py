@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404,redirect
 
-from .models import BlogPost, Service, Team, User_Testimonial
+from .models import BlogPost, Service, Team, User_Testimonial,FAQ
 from .models import FAQ
 
 def home(request):
@@ -20,44 +20,109 @@ def home(request):
     return render(request, 'index.html', context)
 
 def about(request):
-    testimonial = User_Testimonial.objects.all()
-    team = Team.objects.all()
     service = Service.objects.all()[:3]
+    team = Team.objects.all()
+    testimonial = User_Testimonial.objects.all()
+    blog_posts = BlogPost.objects.all()
+    faqs = FAQ.objects.all()
 
-    context ={
-        'service':service,
-        'team':team,
-        'testimonial':testimonial,
+    context = {
+        'service': service,
+        'team': team,
+        'testimonial': testimonial,
+        'blog_posts': blog_posts,
+        'faqs': faqs,
     }
 
     return render(request, 'about.html',context)
 
 def services(request):
-    service = Service.objects.all()
+    service = Service.objects.all()[:3]
+    team = Team.objects.all()
     testimonial = User_Testimonial.objects.all()
+    blog_posts = BlogPost.objects.all()
+    faqs = FAQ.objects.all()
 
-
-
-    context ={
-        'service':service,
-        'testimonial':testimonial,
-
+    context = {
+        'service': service,
+        'team': team,
+        'testimonial': testimonial,
+        'blog_posts': blog_posts,
+        'faqs': faqs,
     }
     return render(request, 'service.html',context)
 
 def projects(request):
     return render(request, 'projects.html')
 
-def training(request):
-    return render(request, 'training.html')
+def team(request):
+    service = Service.objects.all()[:3]
+    team = Team.objects.all()
+    testimonial = User_Testimonial.objects.all()
+    blog_posts = BlogPost.objects.all()
+    faqs = FAQ.objects.all()
+
+    context = {
+        'service': service,
+        'team': team,
+        'testimonial': testimonial,
+        'blog_posts': blog_posts,
+        'faqs': faqs,
+    }
+    return render(request, 'team.html',context)
+
+def faq(request):
+    service = Service.objects.all()[:3]
+    team = Team.objects.all()
+    testimonial = User_Testimonial.objects.all()
+    blog_posts = BlogPost.objects.all()
+    faqs = FAQ.objects.all()
+
+    context = {
+        'service': service,
+        'team': team,
+        'testimonial': testimonial,
+        'blog_posts': blog_posts,
+        'faqs': faqs,
+    }
+    return render(request, 'faq.html',context)
 
 def contact(request):
     return render(request, 'contact.html')
 
+def blog_list(request):
+    service = Service.objects.all()[:3]
+    team = Team.objects.all()
+    testimonial = User_Testimonial.objects.all()
+    blog_posts = BlogPost.objects.all()
+    faqs = FAQ.objects.all()
+
+    context = {
+        'service': service,
+        'team': team,
+        'testimonial': testimonial,
+        'blog_posts': blog_posts,
+        'faqs': faqs,
+    }
+    return render(request, 'blog.html',context)
+
 def blog_detail(request, pk):
     post = get_object_or_404(BlogPost, pk=pk)
+   
+    service = Service.objects.all()[:3]
+    team = Team.objects.all()
+    testimonial = User_Testimonial.objects.all()
+    blog_posts = BlogPost.objects.all()
+    faqs = FAQ.objects.all()
+
     context = {
+        'service': service,
+        'team': team,
+        'testimonial': testimonial,
+        'blog_posts': blog_posts,
+        'faqs': faqs,
         'post': post
+
     }
     return render(request, 'blog_detail.html', context)
 
@@ -74,4 +139,21 @@ def contact(request):
     else:
         form = ContactForm()
 
-    return render(request, 'contact.html', {'form': form})
+
+
+
+    service = Service.objects.all()[:3]
+    team = Team.objects.all()
+    testimonial = User_Testimonial.objects.all()
+    blog_posts = BlogPost.objects.all()
+    faqs = FAQ.objects.all()
+
+    context = {
+        'service': service,
+        'team': team,
+        'testimonial': testimonial,
+        'blog_posts': blog_posts,
+        'faqs': faqs,
+    }
+
+    return render(request, 'contact.html', {'form': form}, context)

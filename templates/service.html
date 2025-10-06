@@ -5,8 +5,8 @@
             <!-- Header Start -->
             <div class="container-fluid bg-breadcrumb">
                 <div class="container text-center py-5" style="max-width: 900px;">
-                    <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">Our Services</h4>
-                    <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
+                    <h4 class="text-white display-4 mb-4 wow">Our Services</h4>
+                    <ol class="breadcrumb d-flex justify-content-center mb-0 wow ">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                         <li class="breadcrumb-item"><a href="#">Pages</a></li>
                         <li class="breadcrumb-item active text-primary">Service</li>
@@ -17,11 +17,12 @@
         </div>
         <!-- Navbar & Hero End -->
 
+           <br>
 
                     <!-- Services Start -->
             <div class="container-fluid service py-5">
                 <div class="container py-5">
-                    <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+                    <div class="text-center mx-auto pb-5 wow" style="max-width: 800px;">
                         <h4 class="text-primary">Our Services</h4>
                         <h1 class="display-5 mb-4">What We Do Best</h1>
                         <p class="mb-0">We provide professional project planning, consultancy, training and development solutions to empower organizations, companies, and individuals to achieve sustainable success.</p>
@@ -29,7 +30,7 @@
                     <div class="row g-4">
                                 {% for i in service %}
                         <!-- Project Planning -->
-                        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="col-md-6 col-lg-4 wow">
                             <div class="service-item">
                                 <div class="service-img">
                                     <img src="{{i.image}}" class="img-fluid rounded-top w-100" alt="Project Planning">
@@ -51,7 +52,7 @@
 <!-- Testimonial Start -->
 <div class="container-fluid testimonial pb-5">
     <div class="container pb-5">
-        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+        <div class="text-center mx-auto pb-5 wow" style="max-width: 800px;">
             <h4 class="text-primary">Testimonial</h4>
             <h1 class="display-5 mb-4">Our Clients Reviews</h1>
             <p class="mb-0">
@@ -59,7 +60,7 @@
             </p>
         </div>
 
-        <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.2s">
+        <div class="owl-carousel testimonial-carousel wow">
             {% for t in testimonial %}
             <div class="testimonial-item">
                 <div class="testimonial-quote-left">

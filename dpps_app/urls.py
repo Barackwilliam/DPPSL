@@ -6,7 +6,9 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('services/', views.services, name='services'),
     path('projects/', views.projects, name='projects'),
-    path('training/', views.training, name='training'),
+    path('blog_list/', views.blog_list, name='blog_list'),
+    path('team/', views.team, name='team'),
+    path('faq/', views.faq, name='faq'),
     path('contact/', views.contact, name='contact'),
     path('blog/<int:pk>/', views.blog_detail, name='blog_detail'),  # Detail page
 

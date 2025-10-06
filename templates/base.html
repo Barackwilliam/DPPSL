@@ -47,8 +47,8 @@
                 <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
                     <div class="d-flex flex-wrap">
                         <a href="#" class="text-muted small me-4"><i class="fas fa-map-marker-alt text-primary me-2"></i>Find A Location</a>
-                        <a href="tel:+01234567890" class="text-muted small me-4"><i class="fas fa-phone-alt text-primary me-2"></i>+255719 686 864</a>
-                        <a href="mailto:example@gmail.com" class="text-muted small me-0"><i class="fas fa-envelope text-primary me-2"></i>projectpsolution@gmail.com</a>
+                        <a href="tel:+255719686864" class="text-muted small me-4"><i class="fas fa-phone-alt text-primary me-2"></i>+255719 686 864</a>
+                        <a href="mailto:projectpsolution@gmail.com" class="text-muted small me-0"><i class="fas fa-envelope text-primary me-2"></i>projectpsolution@gmail.com</a>
                     </div>
                 </div>
                 <div class="col-lg-4 text-center text-lg-end">
@@ -86,8 +86,13 @@
                         <a href="{% url 'home' %}" class="nav-item nav-link active">Home</a>
                         <a href="{% url 'about' %}" class="nav-item nav-link">About</a>
                         <a href="{% url 'services' %}" class="nav-item nav-link">Services</a>
+                        <a href="{% url 'team' %}" class="nav-item nav-link">Team</a>
+                        <a href="{% url 'blog_list' %}" class="nav-item nav-link">News & Updates</a>
                        
+                        <a href="{% url 'faq' %}" class="nav-item nav-link">FAQ</a>
+                        {% comment %}
                         <a href="{% url 'contact' %}" class="nav-item nav-link">Contact Us</a>
+                        {% endcomment %}
                     </div>
                     <a href="#" class="btn btn-primary rounded-pill py-2 px-4 my-3 my-lg-0 flex-shrink-0">Get Started</a>
                 </div>
@@ -103,7 +108,7 @@
 
             
         <!-- Footer Start -->
-        <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
+        <div class="container-fluid footer py-5 wow fadeIn">
             <div class="container py-5 border-start-0 border-end-0" style="border: 1px solid; border-color: rgb(255, 255, 255, 0.08);">
                 <div class="row g-5">
                    <div class="col-md-6 col-lg-6 col-xl-4">
