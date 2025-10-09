@@ -37,7 +37,7 @@ def about(request):
     return render(request, 'about.html',context)
 
 def services(request):
-    service = Service.objects.all()[:3]
+    service = Service.objects.all()
     team = Team.objects.all()
     testimonial = User_Testimonial.objects.all()
     blog_posts = BlogPost.objects.all()
