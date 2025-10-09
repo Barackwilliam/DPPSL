@@ -85,7 +85,7 @@ def faq(request):
         'blog_posts': blog_posts,
         'faqs': faqs,
     }
-    return render(request, 'faq.html',context)
+    return render(request, 'Questions.html',context)
 
 def contact(request):
     return render(request, 'contact.html')
