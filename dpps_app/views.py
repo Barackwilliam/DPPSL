@@ -1,19 +1,29 @@
 from django.shortcuts import render, get_object_or_404,redirect
+from .forms import User_TestimonialForm  
+from .models import BlogPost, Service, Team,FAQ,User_Testimonial
 
-from .models import BlogPost, Service, Team, User_Testimonial,FAQ
 from .models import FAQ
+
+# views.py (update your home and services views to include the form instance)
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import User_Testimonial
+from .forms import User_TestimonialForm
+
 
 def home(request):
     service = Service.objects.all()[:3]
     team = Team.objects.all()
-    testimonial = User_Testimonial.objects.all()
+    testimonials = User_Testimonial.objects.all()
+    form = User_TestimonialForm()  # Hapa ndio fix: Always create form    
     blog_posts = BlogPost.objects.all()
     faqs = FAQ.objects.all()
 
     context = {
         'service': service,
         'team': team,
-        'testimonial': testimonial,
+        'form': form,
+        'testimonials': testimonials,
         'blog_posts': blog_posts,
         'faqs': faqs,
     }
@@ -22,14 +32,15 @@ def home(request):
 def about(request):
     service = Service.objects.all()[:3]
     team = Team.objects.all()
-    testimonial = User_Testimonial.objects.all()
+    testimonials = User_Testimonial.objects.all()
     blog_posts = BlogPost.objects.all()
     faqs = FAQ.objects.all()
 
     context = {
         'service': service,
         'team': team,
-        'testimonial': testimonial,
+        'form': form,
+        'testimonials': testimonials,
         'blog_posts': blog_posts,
         'faqs': faqs,
     }
@@ -39,14 +50,16 @@ def about(request):
 def services(request):
     service = Service.objects.all()
     team = Team.objects.all()
-    testimonial = User_Testimonial.objects.all()
+    testimonials = User_Testimonial.objects.all()
+    form = User_TestimonialForm()  # Hapa ndio fix: Always create form    
     blog_posts = BlogPost.objects.all()
     faqs = FAQ.objects.all()
 
     context = {
         'service': service,
         'team': team,
-        'testimonial': testimonial,
+        'form': form,
+        'testimonials': testimonials,
         'blog_posts': blog_posts,
         'faqs': faqs,
     }
@@ -58,14 +71,14 @@ def projects(request):
 def team(request):
     service = Service.objects.all()[:3]
     team = Team.objects.all()
-    testimonial = User_Testimonial.objects.all()
+    testimonials = User_Testimonial.objects.all()
     blog_posts = BlogPost.objects.all()
     faqs = FAQ.objects.all()
 
     context = {
         'service': service,
         'team': team,
-        'testimonial': testimonial,
+        'testimonials': testimonials,
         'blog_posts': blog_posts,
         'faqs': faqs,
     }
@@ -74,14 +87,14 @@ def team(request):
 def faq(request):
     service = Service.objects.all()[:3]
     team = Team.objects.all()
-    testimonial = User_Testimonial.objects.all()
+    testimonials = User_Testimonial.objects.all()
     blog_posts = BlogPost.objects.all()
     faqs = FAQ.objects.all()
 
     context = {
         'service': service,
         'team': team,
-        'testimonial': testimonial,
+        'testimonials': testimonials,
         'blog_posts': blog_posts,
         'faqs': faqs,
     }
@@ -93,14 +106,14 @@ def contact(request):
 def blog_list(request):
     service = Service.objects.all()[:3]
     team = Team.objects.all()
-    testimonial = User_Testimonial.objects.all()
+    testimonials = User_Testimonial.objects.all()
     blog_posts = BlogPost.objects.all()
     faqs = FAQ.objects.all()
 
     context = {
         'service': service,
         'team': team,
-        'testimonial': testimonial,
+        'testimonials': testimonials,
         'blog_posts': blog_posts,
         'faqs': faqs,
     }
@@ -111,14 +124,14 @@ def blog_detail(request, pk):
    
     service = Service.objects.all()[:3]
     team = Team.objects.all()
-    testimonial = User_Testimonial.objects.all()
+    testimonials = User_Testimonial.objects.all()
     blog_posts = BlogPost.objects.all()
     faqs = FAQ.objects.all()
 
     context = {
         'service': service,
         'team': team,
-        'testimonial': testimonial,
+        'testimonials': testimonials,
         'blog_posts': blog_posts,
         'faqs': faqs,
         'post': post
@@ -144,16 +157,51 @@ def contact(request):
 
     service = Service.objects.all()[:3]
     team = Team.objects.all()
-    testimonial = User_Testimonial.objects.all()
+    testimonials = User_Testimonial.objects.all()
     blog_posts = BlogPost.objects.all()
     faqs = FAQ.objects.all()
 
     context = {
         'service': service,
         'team': team,
-        'testimonial': testimonial,
+        'testimonials': testimonials,
         'blog_posts': blog_posts,
         'faqs': faqs,
     }
 
     return render(request, 'contact.html', {'form': form}, context)
+
+# def submit_testimonial(request):
+#     if request.method == 'POST':
+#         form = User_TestimonialForm(request.POST)
+#         if form.is_valid():
+#             instance = form.save(commit=False)
+#             instance.image.store()  # Manually store if not auto-stored (optional, but safe)
+#             instance.save()
+#             messages.success(request, 'Thank you! Your testimonial has been submitted.')
+#         else:
+#             messages.error(request, 'Please correct the errors below.')
+#         return redirect(request.META.get('HTTP_REFERER', 'home'))
+#     return redirect('home')
+
+
+
+# views.py (update submit_testimonial to handle AJAX and return JSON)
+from django.contrib import messages
+from django.http import JsonResponse  # Add this import
+
+def submit_testimonial(request):
+    if request.method == 'POST':
+        form = User_TestimonialForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':  # Check if AJAX
+                return JsonResponse({'status': 'success', 'message': 'Review submitted successfully!'})
+            messages.success(request, 'Review submitted successfully!')
+        else:
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                errors = form.errors.as_json()
+                return JsonResponse({'status': 'error', 'errors': errors}, status=400)
+            messages.error(request, 'Please correct the errors below.')
+        return redirect(request.META.get('HTTP_REFERER', 'home'))
+    return redirect('home')

@@ -1,0 +1,244 @@
+       <!-- templates/testimonial_section.html (updated for modern, interactive, mobile-responsive design with wow effects) -->
+<div class="container-fluid testimonial py-5" style="background: linear-gradient(to bottom, #f8f9fa, #e3f2fd);">
+    <div class="container py-5">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+            <h4 class="text-primary mb-3 animate__animated animate__pulse animate__infinite"><i class="fas fa-star icon-wow me-2"></i> Testimonials</h4>
+            <h1 class="display-4 mb-4 text-dark wow zoomIn" data-wow-delay="0.3s">What Our Clients Say</h1>
+            <p class="mb-0 lead text-muted wow fadeIn" data-wow-delay="0.5s">
+ Hear from professionals and organizations who have benefited from our project development and training services.            </p>
+        </div>
+
+        <!-- Submit Testimonial Button with wow hover effect -->
+        <div class="text-center mb-5 wow bounceIn" data-wow-delay="0.7s">
+            <button type="button" class="btn btn-gradient btn-lg px-5 py-3 shadow-lg animate__animated animate__tada animate__delay-1s" data-bs-toggle="modal" data-bs-target="#submitTestimonialModal">
+                <i class="fas fa-star icon-wow me-2 animate__animated animate__swing animate__infinite"></i>  Click to Share Your Experience
+            </button>
+        </div>
+
+        <!-- Testimonial Carousel - Interactive with auto-play, navigation, and touch support for mobile -->
+        <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.9s">
+            {% for t in testimonials %}
+                <div class="testimonial-item bg-white shadow-xl rounded-4 p-4 mx-3 animate__animated animate__fadeInLeft" data-wow-delay="{{ forloop.counter0|add:1 }}s">
+                    <div class="testimonial-quote-left text-primary mb-3">
+                        <i class="fas fa-quote-left fa-2x animate__animated animate__bounceIn"></i>
+                    </div>
+                    
+                    <div class="testimonial-img text-center mb-3">
+                        <img src="{{ t.get_image_url }}" class="img-fluid rounded-circle border border-primary shadow-sm animate__animated animate__rotateIn" alt="{{ t.Full_name }}" style="width: 120px; height: 120px; object-fit: cover; border-width: 3px !important;">
+                    </div>
+
+                    <div class="testimonial-text text-center mb-3">
+                        <p class="mb-0 font-italic">{{ t.comment }}</p>
+                    </div>
+
+                    <div class="testimonial-title text-center">
+                        <h6 class="mb-1 text-dark">{{ t.Full_name }}</h6>
+                        <p class="mb-2 text-muted small">{{ t.profession }}</p>
+                        <div class="d-flex justify-content-center text-warning">
+                            <i class="fas fa-star animate__animated animate__heartBeat animate__infinite"></i>
+                            <i class="fas fa-star animate__animated animate__heartBeat animate__infinite" style="animation-delay: 0.2s;"></i>
+                            <i class="fas fa-star animate__animated animate__heartBeat animate__infinite" style="animation-delay: 0.4s;"></i>
+                            <i class="fas fa-star animate__animated animate__heartBeat animate__infinite" style="animation-delay: 0.6s;"></i>
+                            <i class="fas fa-star animate__animated animate__heartBeat animate__infinite" style="animation-delay: 0.8s;"></i>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-quote-right text-primary mt-3">
+                        <i class="fas fa-quote-right fa-2x animate__animated animate__bounceIn"></i>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="text-center text-muted lead animate__animated animate__fadeIn">No testimonials yet. Be the first to share your feedback.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Submit Testimonial Modal - Modern with smooth animations -->
+<div class="modal fade" id="submitTestimonialModal" tabindex="-1" aria-labelledby="submitTestimonialModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content rounded-4 shadow-lg overflow-hidden animate__animated animate__zoomIn" style="background: linear-gradient(135deg, #0783f7 0%, #0400ff 100%);">
+            <div class="modal-header border-0 pb-0">
+                <h5 style="text-align: center;" class="modal-title text-white fw-bold" id="submitTestimonialModalLabel"><i class="fas fa-star icon-wow me-2 animate__animated animate__rubberBand"></i>Share Your Experience</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-5 bg-white rounded-bottom-4">
+                <p class="text-center text-muted mb-4 lead animate__animated animate__fadeInDown">
+Tell us about your experience with Development Project Planning Solution Limited. Your feedback helps us improve and inspire others                </p>
+
+                <!-- Form with ID for AJAX -->
+                <form id="testimonialForm" method="post" novalidate>
+                    {% csrf_token %}
+
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6 animate__animated animate__fadeInLeft" data-wow-delay="0.1s">
+                            {{ form.Full_name.label_tag }}
+                            {{ form.Full_name }}
+                            <div class="error text-danger small mt-1" id="Full_name_error"></div>
+                        </div>
+                        <div class="col-md-6 animate__animated animate__fadeInRight" data-wow-delay="0.1s">
+                            {{ form.profession.label_tag }}
+                            {{ form.profession }}
+                            <div class="error text-danger small mt-1" id="profession_error"></div>
+                        </div>
+                        <div class="col-12 animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                            {{ form.image.label_tag }}
+                            {{ form.image }}
+                            <div class="error text-danger small mt-1" id="image_error"></div>
+                        </div>
+                        <div class="col-12 animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                            {{ form.comment.label_tag }}
+                            {{ form.comment }}
+                            <div class="error text-danger small mt-1" id="comment_error"></div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-gradient btn-lg px-5 py-3 shadow-lg animate__animated animate__pulse animate__infinite">
+                            <i class="fas fa-paper-plane me-2 animate__animated animate__swing"></i> Submit Now
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal Popup - With wow animation -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content animate__animated animate__bounceIn">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="successModalLabel"><i class="fas fa-check-circle me-2 animate__animated animate__tada"></i> Success!</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <p id="successMessage" class="lead"></p>
+                <i class="fas fa-trophy fa-3x text-warning animate__animated animate__heartBeat animate__infinite"></i>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for AJAX Submission (same as before, but with enhanced feedback) -->
+<script>
+    document.getElementById('testimonialForm').addEventListener('submit', function(event) {
+        event.preventDefault();  // Prevent page reload
+
+        // Clear previous errors with animation
+        document.querySelectorAll('.error').forEach(el => {
+            el.innerHTML = '';
+            el.classList.remove('animate__animated', 'animate__shakeX');
+        });
+
+        const formData = new FormData(this);
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '{% url "submit_testimonial" %}', true);
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+                if (response.status === 'success') {
+                    // Close form modal and show success with wow
+                    bootstrap.Modal.getInstance(document.getElementById('submitTestimonialModal')).hide();
+                    document.getElementById('successMessage').innerText = response.message;
+                    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                    successModal.show();
+                    // Optional: Add confetti or more wow effects (requires extra JS library)
+                } else {
+                    // Show errors with shake animation
+                    const errors = JSON.parse(response.errors);
+                    for (let field in errors) {
+                        const errorEl = document.getElementById(field + '_error');
+                        errorEl.innerHTML = errors[field][0].message;
+                        errorEl.classList.add('animate__animated', 'animate__shakeX');
+                    }
+                }
+            }
+        };
+
+        xhr.send(formData);
+    });
+</script>
+
+<!-- Custom Styles - Enhanced for modern look and responsiveness -->
+<style>
+    .testimonial-item {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+    }
+    .testimonial-item:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15) !important;
+    }
+    .btn-gradient {
+        background: linear-gradient(45deg, #1e3c72, #00bfff);
+        color: #fff;
+        border: none;
+        border-radius: 50px;
+        transition: all 0.4s ease;
+    }
+    .btn-gradient:hover {
+        background: linear-gradient(45deg, #00bfff, #1e3c72);
+        transform: translateY(-5px) scale(1.1);
+        box-shadow: 0 10px 20px rgba(0, 191, 255, 0.5);
+    }
+    .form-control {
+        border: 2px solid #e0f7ff;
+        border-radius: 15px;
+        transition: all 0.3s ease;
+    }
+    .form-control:focus {
+        border-color: #00bfff;
+        box-shadow: 0 0 15px rgba(0, 191, 255, 0.4);
+    }
+    .icon-wow {
+        animation: iconPulse 1.5s infinite;
+    }
+    @keyframes iconPulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+        .testimonial-carousel .owl-item {
+            margin: 0 auto;
+            max-width: 90%;
+        }
+        .modal-dialog {
+            max-width: 95%;
+        }
+        h1.display-5 {
+            font-size: 2.5rem;
+        }
+        .btn-lg {
+            font-size: 1rem;
+            px-4 py-2;
+        }
+    }
+</style>
+
+<!-- Owl Carousel Config - Enhanced for interactivity and mobile swipe -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script>
+    $('.testimonial-carousel').owlCarousel({
+        loop: true,
+        margin: 20,
+        nav: true,
+        dots: true,
+        autoplay: true,
+        autoplayTimeout: 5000,
+        autoplayHoverPause: true,
+        responsive: {
+            0: { items: 1 },
+            600: { items: 2 },
+            1000: { items: 3 }
+        },
+        navText: ['<i class="fas fa-chevron-left fa-2x text-primary"></i>', '<i class="fas fa-chevron-right fa-2x text-primary"></i>']
+    });
+</script>

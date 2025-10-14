@@ -1,6 +1,7 @@
 from django import forms
 from .models import Service,Team,User_Testimonial
 
+
 class ServiceAdminForm(forms.ModelForm):
     class Meta:
         model = Service
@@ -26,38 +27,28 @@ class TeamForm(forms.ModelForm):
 
 
 
+from pyuploadcare.dj.forms import FileWidget  # Import this
 
 class User_TestimonialForm(forms.ModelForm):
     class Meta:
-        model = Team
-        fields = '__all__'
+        model = User_Testimonial
+        fields = ['Full_name', 'profession', 'image', 'comment']
+        widgets = {
+            'Full_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Full Name'}),
+            'profession': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Profession'}),
+            'image': FileWidget(attrs={
+                'data-public-key': '76122001cca4add87f02',  # Optional if set in settings; replace if needed
+                'data-images-only': 'true',  # Restrict to images
+                'data-max-size': '5242880',  # 5MB limit
+            }),
+            'comment': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Share your experience...', 'rows': 5}),
+        }
 
     class Media:
-        js = [
-            'https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js',
-        ]
+        js = ('https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js',)  # Ensure JS loads
 
 
 from .models import BlogPost
-
-# class BlogPostForm(forms.ModelForm):
-#     class Meta:
-#         model = BlogPost
-#         fields = ['title', 'category', 'image', 'summary', 'content', 'author']
-#         widgets = {
-#             'title': forms.TextInput(attrs={'class': 'form-control'}),
-#             'category': forms.TextInput(attrs={'class': 'form-control'}),
-#             'image': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Uploadcare image URL'}),
-#             'summary': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
-#             'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 6}),
-#             'author': forms.TextInput(attrs={'class': 'form-control'}),
-#         }
-#     class Media:
-#             js = [
-#                 'https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js',
-#             ]
-
-
 class BlogPostForm(forms.ModelForm):
     class Meta:
         model = BlogPost

@@ -363,50 +363,8 @@
             </div>
         </div>
         <!-- Offer End -->
-    
 
-       <!-- Testimonial Start -->
-            <div class="container-fluid testimonial pb-5">
-                <div class="container pb-5">
-                    <div class="text-center mx-auto pb-5 wow fadeInUp" style="max-width: 800px;">
-                        <h4 class="text-primary">Testimonials</h4>
-                        <h1 class="display-5 mb-4">What Our Clients Say</h1>
-                        <p class="mb-0">We value the trust our clients place in us. Here are some of their experiences with our services.</p>
-                    </div>
 
-                    <div class="owl-carousel testimonial-carousel wow fadeInUp">
-                        {% for item in testimonial %}
-                        <div class="testimonial-item">
-                            <div class="testimonial-quote-left">
-                                <i class="fas fa-quote-left fa-2x"></i>
-                            </div>
-                            <div class="testimonial-img">
-                                <img src="{{ item.get_image_url }}" class="img-fluid rounded-circle" alt="{{ item.full_name }}">
-                            </div>
-                            <div class="testimonial-text">
-                                <p class="mb-0">{{ item.comment }}</p>
-                            </div>
-                            <div class="testimonial-title">
-                                <div>
-                                    <h4 class="mb-0">{{ item.full_name }}</h4>
-                                    <p class="mb-0">{{ item.position }}</p>
-                                </div>
-                                <div class="d-flex text-primary">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                            <div class="testimonial-quote-right">
-                                <i class="fas fa-quote-right fa-2x"></i>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            <!-- Testimonial End -->
+{% include 'testimonial_section.html' %}
 
 {% endblock %}

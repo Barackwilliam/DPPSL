@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-u3g_i2#nvvn*x3-p3vo7f#8ec-bz2*0&1a%f5(%&8q8a08mhtt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -26,7 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dpps_app'
+    'dpps_app',
+    'pyuploadcare.dj',
 ]
 
 MIDDLEWARE = [
@@ -136,6 +137,13 @@ STATICFILES_DIRS = [
 UPLOADCARE = {
     'pub_key': '76122001cca4add87f02',
     'secret': 'f00801b9b65172d50de5',
+}
+
+UPLOADCARE = {
+    'pub_key': '76122001cca4add87f02',
+    'secret': 'f00801b9b65172d50de5',
+    'use_hosted_assets': True,  # Use CDN for JS/CSS (recommended)
+    'signed_uploads': False,  # Set to True if enabled in your Uploadcare project
 }
 # For production collectstatic
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

@@ -2,7 +2,8 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 
 from .models import Service,User_Testimonial
-from .forms import  ServiceAdminForm,User_TestimonialForm,BlogPostForm
+
+from .forms import  ServiceAdminForm,BlogPostForm, User_TestimonialForm
 
 # Register your models here.
 

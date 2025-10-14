@@ -1,5 +1,5 @@
 from django.db import models
-
+from pyuploadcare.dj.models import ImageField  
 # Create your models here.
 
 class Service(models.Model):
@@ -47,7 +47,7 @@ class Team(models.Model):
 
 class User_Testimonial(models.Model):
     Full_name = models.CharField(max_length=100)
-    image = models.CharField(max_length=255, blank=True, null=True)
+    image = ImageField(blank=True, null=True, manual_crop="")  # Use ImageField for images; stores UUID automatically    
     comment = models.TextField()   # badala ya description
     profession = models.CharField(max_length=100)
 
@@ -63,8 +63,9 @@ class User_Testimonial(models.Model):
     # Kwa frontend display optimized
     def get_image_url(self):
         if self.image:
-            return f"https://ucarecdn.com/{self.image}/-/format/jpg/-/quality/smart/"
+            return str(self.image)  # ImageField provides URL via Uploadcare CDN
         return "https://ucarecdn.com/09cf22be-f6f4-4d5a-abbd-1de08520e7e3/-/format/jpg/-/quality/smart/"
+
 
 from django.db import models
 class BlogPost(models.Model):
@@ -110,3 +111,5 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.subject or 'No Subject'}"
+
+
