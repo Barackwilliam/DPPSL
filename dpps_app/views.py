@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404,redirect
 from .forms import User_TestimonialForm  
+
 from .models import BlogPost, Service, Team,FAQ,User_Testimonial
 
 from .models import FAQ
@@ -39,7 +40,6 @@ def about(request):
     context = {
         'service': service,
         'team': team,
-        'form': form,
         'testimonials': testimonials,
         'blog_posts': blog_posts,
         'faqs': faqs,
