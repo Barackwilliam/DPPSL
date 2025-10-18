@@ -1,5 +1,8 @@
 from django.shortcuts import render, get_object_or_404,redirect
 from .forms import User_TestimonialForm  
+from django.contrib import messages
+from django.http import HttpResponseForbidden
+
 
 from .models import BlogPost, Service, Team,FAQ,User_Testimonial
 
@@ -205,3 +208,105 @@ def submit_testimonial(request):
             messages.error(request, 'Please correct the errors below.')
         return redirect(request.META.get('HTTP_REFERER', 'home'))
     return redirect('home')
+
+from django.shortcuts import render, redirect, get_object_or_404 
+from django.contrib.auth import login, authenticate 
+from django.contrib.auth.decorators import login_required 
+from django.contrib import messages 
+from django.http import HttpResponseForbidden 
+from .forms import UserRegistrationForm, ParticipantForm, CertificateUploadForm 
+from .models import Participant, Training
+from datetime import date
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            Participant.objects.create(
+                user=user,
+                full_name=form.cleaned_data['full_name'],
+                phone_number=form.cleaned_data['phone_number'],
+                organization=form.cleaned_data['organization'],
+                position=form.cleaned_data['position'],
+                training=form.cleaned_data['training'],
+                participation_date=date.today(),
+                status='pending'
+            )
+            messages.success(request, 'Registration successful! Please wait for admin approval.')
+            return redirect('login')
+    else:
+        form = UserRegistrationForm()
+    
+    return render(request, 'register.html', {'form': form})
+
+@login_required
+def dashboard(request):
+    try:
+        participant = request.user.participant
+    except Participant.DoesNotExist:
+        return redirect('complete_profile')
+    
+    context = {
+        'participant': participant,
+        'trainings': Training.objects.all(),
+    }
+    return render(request, 'dashboard.html', context)
+
+
+@login_required
+def complete_profile(request):
+    try:
+        participant = request.user.participant
+        return redirect('dashboard')
+    except Participant.DoesNotExist:
+        pass
+    
+    if request.method == 'POST':
+        form = ParticipantForm(request.POST)
+        if form.is_valid():
+            participant = form.save(commit=False)
+            participant.user = request.user
+            participant.full_name = request.user.first_name + ' ' + request.user.last_name
+            participant.save()
+            messages.success(request, 'Your profile information has been completed!')
+            return redirect('dashboard')
+    else:
+        form = ParticipantForm()
+    
+    return render(request, 'complete_profile.html', {'form': form})
+
+
+@login_required
+def training_participants(request, training_id):
+    training = get_object_or_404(Training, id=training_id)
+    participants = Participant.objects.filter(
+        training=training, 
+        status='approved'
+    ).select_related('user')
+    
+    return render(request, 'training_participants.html', {
+        'training': training,
+        'participants': participants
+    })
+
+
+@login_required
+def download_certificate(request):
+    try:
+        participant = request.user.participant
+        if participant.certificate_uploaded:
+            return redirect(participant.certificate)
+        else:
+            messages.warning(request, 'The certificate has not yet been uploaded by the administrator.')
+            return redirect('dashboard')
+    except Participant.DoesNotExist:
+        messages.error(request, 'You do not have a participant profile.')
+        return redirect('dashboard')
+
+
+from django.contrib.auth import logout
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')  # or wherever you want after logout

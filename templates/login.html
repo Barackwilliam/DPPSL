@@ -1,0 +1,439 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - DPPS{% endblock %}
+
+{% block content %}
+<br><br><br>
+
+<div class="login-wrapper">
+    <!-- Enhanced Gradient Background -->
+    <div class="bg-gradient-overlay"></div>
+    
+    <!-- Main Login Section -->
+    <section class="login-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5 col-md-6 col-12">
+                    <div class="login-card glass-effect animate__animated animate__fadeInUp">
+                        <!-- Card Header -->
+                        <div class="card-header gradient-bg text-center">
+                            <div class="header-icon-wrapper">
+                                <i class="fas fa-lock header-icon"></i>
+                            </div>
+                            <h2 class="card-title">Sign In to Your Account</h2>
+                            <p class="card-subtitle">Welcome back! Please enter your credentials</p>
+                        </div>
+                        
+                        <!-- Form Body -->
+                        <div class="card-body">
+                            <form method="post">
+                                {% csrf_token %}
+                                
+                                <div class="form-field mb-4">
+                                    <label for="username" class="form-label">
+                                        <i class="fas fa-user me-2"></i>Username
+                                    </label>
+                                    <div class="input-wrapper glass-effect">
+                                        <i class="fas fa-user input-icon"></i>
+                                        <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-field mb-4">
+                                    <label for="password" class="form-label">
+                                        <i class="fas fa-key me-2"></i>Password
+                                    </label>
+                                    <div class="input-wrapper glass-effect">
+                                        <i class="fas fa-key input-icon"></i>
+                                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary btn-full gradient-btn">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                                </button>
+                            </form>
+                            
+                            <!-- Divider and Register Link -->
+                            <div class="divider-section">
+                                <hr class="divider-line">
+                                <span class="divider-text">or</span>
+                                <hr class="divider-line">
+                            </div>
+                            
+                            <div class="register-link text-center">
+                                <p class="text-secondary mb-0">
+                                    Don't have an account? 
+                                    <a href="{% url 'register' %}" class="link-primary fw-semibold">
+                                        <i class="fas fa-user-plus me-1"></i>Register here
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+:root {
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --accent-color: #f093fb;
+    --success-color: #4ecdc4;
+    --warning-color: #ffeaa7;
+    --danger-color: #fd79a8;
+    --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --bg-secondary: rgba(255, 255, 255, 0.95);
+    --text-primary: #2d3436;
+    --text-secondary: #636e72;
+    --border-color: rgba(102, 126, 234, 0.15);
+    --shadow-sm: 0 2px 4px 0 rgb(0 0 0 / 0.08);
+    --shadow-md: 0 6px 12px -2px rgb(0 0 0 / 0.1), 0 3px 6px -2px rgb(0 0 0 / 0.05);
+    --shadow-lg: 0 20px 40px -10px rgb(0 0 0 / 0.2), 0 10px 20px -5px rgb(0 0 0 / 0.1);
+    --radius: 1.25rem;
+    --glass-bg: rgba(255, 255, 255, 0.3);
+    --glass-border: rgba(255, 255, 255, 0.25);
+}
+
+[data-theme="dark"] {
+    --bg-primary: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    --bg-secondary: rgba(52, 73, 94, 0.85);
+    --text-primary: #ecf0f1;
+    --text-secondary: #bdc3c7;
+    --border-color: rgba(102, 126, 234, 0.25);
+    --glass-bg: rgba(52, 73, 94, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.15);
+}
+
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+}
+
+.login-wrapper {
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.bg-gradient-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
+    z-index: -1;
+    animation: gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+.login-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 2rem 0;
+    animation: slideInFromTop 1s ease-out;
+}
+
+@keyframes slideInFromTop {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.login-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(24px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.login-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+}
+
+.login-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.card-header {
+    padding: 0;
+    margin: 0;
+}
+
+.gradient-bg {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.gradient-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+    opacity: 0.3;
+}
+
+.header-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: all 0.3s ease;
+}
+
+.gradient-bg:hover .header-icon-wrapper {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+
+.header-icon {
+    font-size: 2.5rem;
+}
+
+.card-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.75rem;
+    letter-spacing: -0.02em;
+}
+
+.card-subtitle {
+    font-size: 1rem;
+    margin: 0;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.card-body {
+    padding: 2.5rem;
+}
+
+.form-field {
+    position: relative;
+}
+
+.form-label {
+    display: flex;
+    align-items: center;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.02em;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper .input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    z-index: 1;
+    transition: color 0.3s ease;
+}
+
+.input-wrapper input:focus + .input-icon,
+.input-wrapper input:not(:placeholder-shown) + .input-icon {
+    color: var(--primary-color);
+}
+
+.form-control {
+    width: 100%;
+    padding: 1.25rem 1rem 1.25rem 3rem;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1), inset 0 0 0 1px var(--primary-color);
+    background: rgba(255,255,255,0.2);
+}
+
+.form-control::placeholder {
+    color: var(--text-secondary);
+}
+
+.btn-full {
+    width: 100%;
+    padding: 1.25rem;
+    border-radius: var(--radius);
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.gradient-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.gradient-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+}
+
+.divider-section {
+    position: relative;
+    text-align: center;
+    margin: 2.5rem 0;
+}
+
+.divider-line {
+    border: none;
+    height: 1px;
+    background: var(--glass-border);
+    margin: 0;
+}
+
+.divider-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--glass-bg);
+    padding: 0 1rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.register-link a {
+    transition: color 0.3s ease;
+}
+
+.register-link a:hover {
+    color: var(--accent-color);
+}
+
+.register-link .link-primary {
+    color: var(--primary-color);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .login-section { padding: 1rem 0; }
+    
+    .gradient-bg { padding: 2rem 1.5rem; }
+    .header-icon-wrapper { width: 60px; height: 60px; margin-bottom: 1rem; }
+    .header-icon { font-size: 2rem; }
+    .card-title { font-size: 1.75rem; }
+    .card-subtitle { font-size: 0.95rem; }
+    
+    .card-body { padding: 2rem 1.5rem; }
+    
+    .form-control {
+        padding: 1rem 0.875rem 1rem 2.5rem;
+        font-size: 0.95rem;
+    }
+    
+    .form-label { font-size: 0.9rem; }
+    
+    .gradient-btn { padding: 1.125rem; font-size: 1rem; }
+    
+    .divider-section { margin: 2rem 0; }
+    .divider-text { font-size: 0.85rem; padding: 0 0.75rem; }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.login-card { animation-delay: 0.2s; }
+</style>
+
+<script>
+// Form enhancements
+document.addEventListener('DOMContentLoaded', () => {
+    const inputs = document.querySelectorAll('.form-control');
+    inputs.forEach(input => {
+        input.addEventListener('focus', () => {
+            input.parentElement.parentElement.style.transform = 'translateY(-2px)';
+        });
+        input.addEventListener('blur', () => {
+            input.parentElement.parentElement.style.transform = 'translateY(0)';
+        });
+        
+        // Toggle password visibility
+        if (input.type === 'password') {
+            const toggleBtn = document.createElement('i');
+            toggleBtn.className = 'fas fa-eye input-icon-toggle';
+            toggleBtn.style.cssText = 'position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-secondary); cursor: pointer; z-index: 1; transition: color 0.3s ease;';
+            input.parentElement.appendChild(toggleBtn);
+            toggleBtn.addEventListener('click', () => {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    toggleBtn.classList.remove('fa-eye');
+                    toggleBtn.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    toggleBtn.classList.remove('fa-eye-slash');
+                    toggleBtn.classList.add('fa-eye');
+                }
+            });
+        }
+    });
+    
+    // Submit button animation
+    const submitBtn = document.querySelector('.gradient-btn');
+    submitBtn.addEventListener('click', (e) => {
+        if (submitBtn.form.checkValidity()) {
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Signing In...';
+            submitBtn.disabled = true;
+        }
+    });
+});
+</script>
+
+{% endblock %}

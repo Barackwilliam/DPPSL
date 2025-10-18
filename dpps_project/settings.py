@@ -202,3 +202,8 @@ JAZZMIN_UI_TWEAKS = {
     "brand_colour": "navbar-primary",
     "dark_mode_theme": "darkly", # dark mode optional
 }
+
+
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'login'
+LOGIN_URL = 'login'

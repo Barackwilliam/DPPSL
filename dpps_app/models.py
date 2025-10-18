@@ -112,4 +112,71 @@ class ContactMessage(models.Model):
     def __str__(self):
         return f"{self.name} - {self.subject or 'No Subject'}"
 
+from django.db import models
+from django.contrib.auth.models import User
+from datetime import date
+from django.core.validators import FileExtensionValidator
+from pyuploadcare.dj.models import FileField
+from django.core.exceptions import ValidationError
+from django.core.validators import FileExtensionValidator  # Add this import
+from pyuploadcare.dj.forms import FileWidget   # Correct import for the widget (from forms, not widgets)
+
+
+class Training(models.Model):
+    title = models.CharField(max_length=200)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    description = models.TextField(blank=True)
+
+    def __str__(self):
+        return f"{self.title} ({self.start_date} - {self.end_date})"
+
+
+# Mfano tu wa Training model (hakikisha ipo kwenye models zako)
+# from .models import Training
+
+
+class Participant(models.Model):
+    STATUS_CHOICES = (
+        ('pending', 'Pending'),
+        ('approved', 'Approved'),
+        ('rejected', 'Rejected'),
+    )
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=200, verbose_name="Full Name")
+    phone_number = models.CharField(max_length=20, verbose_name="Phone Number")
+    organization = models.CharField(max_length=200, verbose_name="Organization", blank=True)
+    position = models.CharField(max_length=100, verbose_name="Position", blank=True)
+    training = models.ForeignKey('Training', on_delete=models.CASCADE, verbose_name="Training")
+    participation_date = models.DateField(null=True, blank=True, verbose_name="Participation Date")
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+
+    # Uploadcare integration for PDF, DOCX, etc.
+    certificate = FileField(
+        blank=True,
+        null=True,
+        verbose_name="Certificate File",
+        validators=[FileExtensionValidator(allowed_extensions=['pdf', 'docx', 'doc'])]
+    )
+
+    date_registered = models.DateTimeField(auto_now_add=True)
+
+    def clean(self):
+        if self.participation_date and (
+            self.participation_date < self.training.start_date or
+            self.participation_date > self.training.end_date
+        ):
+            raise ValidationError("The participation date must be within the training period.")
+
+    def __str__(self):
+        return self.full_name
+
+    @property
+    def certificate_uploaded(self):
+        return bool(self.certificate)
+
+    class Meta:
+        verbose_name = "Participant"
+        verbose_name_plural = "Participants"
 

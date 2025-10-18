@@ -1,0 +1,891 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - DPPS{% endblock %}
+
+{% block content %}
+<br><br><br>
+<div class="dashboard-wrapper">
+    <!-- Enhanced Header with Subtle Glow -->
+    <header class="dashboard-header">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <div class="header-icon-wrapper">
+                        <i class="fas fa-tachometer-alt header-icon"></i>
+                    </div>
+                    <h1 class="header-title ms-3 mb-0">Dashboard Overview</h1>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-outline-light btn-sm rounded-pill me-2 theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
+                        <i class="fas fa-moon theme-icon"></i>
+                    </button>
+                    <a href="{% url 'logout' %}" class="btn btn-light btn-sm rounded-pill logout-btn" title="Logout">
+                        <i class="fas fa-sign-out-alt me-1"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <div class="container-fluid px-4 py-4">
+            
+            <!-- Enhanced Welcome Banner with Progress -->
+            <section class="welcome-banner mb-5">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <h2 class="welcome-title">Hello, {% if participant %}{{ participant.full_name.split.0 }}{% else %}User{% endif %}!</h2>
+                        <p class="welcome-subtitle">Elevate your professional journey with seamless training management and certification tracking. Discover new opportunities today.</p>
+                    </div>
+                    <div class="col-lg-4 text-lg-end">
+                        <div class="progress-circle-wrapper">
+                            <div class="progress-circle" data-progress="{% if participant and participant.training %}{{ participant.progress|default:0 }}{% else %}0{% endif %}">
+                                <span class="progress-value">{% if participant and participant.training %}{{ participant.progress|default:0 }}{% else %}0{% endif %}</span>
+                                <span class="progress-label">Progress</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Enhanced Profile Section -->
+            <section class="profile-section mb-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="profile-card glass-effect">
+                            <div class="profile-header gradient-bg">
+                                <div class="avatar-placeholder glass-effect">
+                                    <i class="fas fa-user avatar-icon"></i>
+                                </div>
+                                <h3 class="profile-name">{% if participant %}{{ participant.full_name }}{% else %}Complete Your Profile{% endif %}</h3>
+                                <div class="profile-status">
+                                    <span class="status-badge text-white {% if participant %}{% if participant.status == 'approved' %}approved
+                                        {% elif participant.status == 'rejected' %}rejected
+                                        {% else %}pending{% endif %}{% else %}incomplete{% endif %}">
+                                        {% if participant %}{{ participant.get_status_display }}{% else %}Incomplete{% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="profile-body">
+                                {% if participant %}
+                                    <div class="info-grid">
+                                        <div class="info-item">
+                                            <i class="fas fa-phone info-icon"></i>
+                                            <label>Phone</label>
+                                            <span>{{ participant.phone_number }}</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <i class="fas fa-building info-icon"></i>
+                                            <label>Organization</label>
+                                            <span>{{ participant.organization|default:"N/A" }}</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <i class="fas fa-briefcase info-icon"></i>
+                                            <label>Position</label>
+                                            <span>{{ participant.position|default:"N/A" }}</span>
+                                        </div>
+                                        {% if participant.training %}
+                                        <div class="info-item">
+                                            <i class="fas fa-graduation-cap info-icon"></i>
+                                            <label>Training</label>
+                                            <span>{{ participant.training.title }}</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <i class="fas fa-calendar info-icon"></i>
+                                            <label>Date</label>
+                                            <span>{{ participant.participation_date }}</span>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <!-- Action Buttons with Enhanced Styling -->
+                                    {% if participant.status == 'approved' %}
+                                        {% if participant.certificate_uploaded %}
+                                        <a href="{{ participant.certificate }}" target="_blank" class="btn btn-primary btn-full gradient-btn">
+                                            <i class="fas fa-download me-2"></i>Download Certificate
+                                        </a>
+                                        {% else %}
+                                        <div class="alert text-danger alert-info glass-effect">
+                                            <i class="fas fa-info-circle me-2"></i>Your Certificate will be available here After Completing Training session
+                                        </div>
+                                        {% endif %}
+                                    {% elif participant.status == 'pending' %}
+                                        <div class="alert text-danger alert-warning glass-effect">
+                                            <i class="fas fa-clock me-2"></i>Your Account is not active wait for admin approval. Check back soon!
+                                        </div>
+                                    {% endif %}
+                                {% else %}
+                                    <div class="text-center">
+                                        <a href="{% url 'complete_profile' %}" class="btn btn-primary btn-lg gradient-btn">
+                                            <i class="fas fa-edit me-2"></i>Complete Profile Now
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Enhanced Trainings Section -->
+            <section class="trainings-section">
+                <div class="section-header">
+                    <h3 class="section-title"><i class="fas fa-graduation-cap me-2"></i>Current Trainings</h3>
+                    <p class="section-subtitle">Explore and manage your ongoing training sessions.</p>
+                </div>
+                <div class="trainings-grid">
+                    {% if trainings %}
+                        {% for training in trainings %}
+                        <div class="training-card glass-effect">
+                            <div class="training-image-placeholder gradient-bg">
+                                <i class="fas fa-book-open icon-large"></i>
+                            </div>
+                            <div class="training-content">
+                                <div class="training-meta">
+                                    <i class="fas fa-tag training-tag"></i>
+                                    <span class="training-level">Upcoming</span>
+                                </div>
+                                <h4 class="training-title">{{ training.title }}</h4>
+                                <p class="training-dates"><i class="fas fa-calendar-days me-1"></i>{{ training.start_date }} – {{ training.end_date }}</p>
+                                <div class="training-actions">
+                                    <a href="{% url 'training_participants' training.id %}" class="btn btn-outline-primary btn-sm gradient-border">
+                                        <i class="fas fa-eye me-1"></i>View Participants
+                                    </a>
+                                    <button class="btn btn-success btn-sm" onclick="alert('Session coming soon!')">
+                                        <i class="fas fa-play me-1"></i>Book Session
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="empty-state glass-effect">
+                            <i class="fas fa-inbox icon-large"></i>
+                            <p class="empty-text">No active trainings at the moment. Stay tuned for exciting opportunities!</p>
+                            <a href="#" class="btn btn-primary gradient-btn">Explore Available Trainings</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </section>
+
+        </div>
+    </main>
+</div>
+
+<style>
+:root {
+    --primary-color: #6366f1; /* Indigo */
+    --secondary-color: #8b5cf6; /* Violet */
+    --accent-color: #ec4899; /* Pink */
+    --success-color: #10b981; /* Green */
+    --warning-color: #f59e0b; /* Amber */
+    --danger-color: #ef4444; /* Red */
+    --bg-primary: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --bg-secondary: rgba(255, 255, 255, 0.9);
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --border-color: rgba(99, 102, 241, 0.2);
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --radius: 1rem;
+    --glass-bg: rgba(255, 255, 255, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.18);
+}
+
+[data-theme="dark"] {
+    --bg-primary: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+    --bg-secondary: rgba(30, 41, 59, 0.8);
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border-color: rgba(99, 102, 241, 0.3);
+    --glass-bg: rgba(30, 41, 59, 0.5);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    backdrop-filter: blur(10px);
+}
+
+.dashboard-wrapper {
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.dashboard-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
+    color: white;
+    padding: 1.5rem 0;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.1;
+}
+
+.header-icon-wrapper {
+    background: rgba(255,255,255,0.2);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+}
+
+.header-icon {
+    font-size: 1.5rem;
+}
+
+.header-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.header-actions .btn {
+    border: 1px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.header-actions .btn:hover {
+    border-color: rgba(255,255,255,0.5);
+    transform: scale(1.05);
+}
+
+.theme-toggle .theme-icon {
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .theme-toggle .theme-icon {
+    transform: rotate(180deg);
+}
+
+.main-content {
+    padding-top: 2rem;
+    animation: slideInFromTop 0.8s ease-out;
+}
+
+@keyframes slideInFromTop {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.welcome-banner {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    padding: 2.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+}
+
+.welcome-title {
+    color: var(--text-primary);
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    font-size: 2.5rem;
+    letter-spacing: -0.02em;
+}
+
+.welcome-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    line-height: 1.7;
+}
+
+.progress-circle-wrapper {
+    position: relative;
+}
+
+.progress-circle {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: conic-gradient(var(--accent-color) 0deg, var(--border-color) 0deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    position: relative;
+    transition: all 1s ease;
+}
+
+.progress-circle[data-progress] {
+    background: conic-gradient(var(--accent-color) 0deg calc(var(--progress, 0) * 3.6deg), var(--border-color) calc(var(--progress, 0) * 3.6deg) 360deg);
+}
+
+.progress-circle::before {
+    content: '';
+    width: 100px;
+    height: 100px;
+    background: var(--bg-secondary);
+    border-radius: 50%;
+    position: absolute;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+}
+
+.progress-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    z-index: 1;
+    margin-bottom: 0.25rem;
+}
+
+.progress-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    z-index: 1;
+    font-weight: 500;
+}
+
+.stats-row .stat-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-row .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.stats-row .stat-card:hover::before {
+    opacity: 1;
+}
+
+.stats-row .stat-card.indigo::before { background: linear-gradient(90deg, var(--primary-color), #a78bfa); }
+.stats-row .stat-card.violet::before { background: linear-gradient(90deg, var(--secondary-color), #c084fc); }
+.stats-row .stat-card.pink::before { background: linear-gradient(90deg, var(--accent-color), #f472b6); }
+.stats-row .stat-card.teal::before { background: linear-gradient(90deg, #0d9488, #5eead4); }
+
+.stat-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+}
+
+.stat-icon-wrapper {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1.5rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    flex-shrink: 0;
+}
+
+.stat-icon {
+    font-size: 1.75rem;
+}
+
+.indigo .stat-icon-wrapper { background: rgba(99, 102, 241, 0.2); }
+.violet .stat-icon-wrapper { background: rgba(139, 92, 246, 0.2); }
+.pink .stat-icon-wrapper { background: rgba(236, 72, 153, 0.2); }
+.teal .stat-icon-wrapper { background: rgba(20, 184, 166, 0.2); }
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.stat-label {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.profile-section .profile-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-4px);
+}
+
+.profile-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+}
+
+.profile-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(255,255,255,0.2);
+}
+
+.avatar-placeholder {
+    width: 100px;
+    height: 100px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    border: 2px solid rgba(255,255,255,0.3);
+    transition: all 0.3s ease;
+}
+
+.profile-card:hover .avatar-placeholder {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+
+.avatar-icon {
+    font-size: 3rem;
+    color: white;
+}
+
+.profile-name {
+    margin: 0 0 1rem;
+    font-weight: 700;
+    font-size: 1.75rem;
+    letter-spacing: -0.025em;
+}
+
+.status-badge {
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.status-badge.approved { 
+    background: rgba(16,185,129,0.2); 
+    color: var(--success-color); 
+    border-color: rgba(16,185,129,0.3);
+}
+.status-badge.pending { 
+    background: rgba(245,158,11,0.2); 
+    color: var(--warning-color); 
+    border-color: rgba(245,158,11,0.3);
+}
+.status-badge.rejected { 
+    background: rgba(239,68,68,0.2); 
+    color: var(--danger-color); 
+    border-color: rgba(239,68,68,0.3);
+}
+.status-badge.incomplete { 
+    background: rgba(236,72,153,0.2); 
+    color: var(--accent-color); 
+    border-color: rgba(236,72,153,0.3);
+}
+
+.profile-body {
+    padding: 2.5rem;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: var(--glass-bg);
+    border-radius: 0.75rem;
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.info-item:hover {
+    transform: translateX(8px);
+    box-shadow: var(--shadow-md);
+}
+
+.info-icon {
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    margin-right: 1rem;
+    width: 24px;
+    flex-shrink: 0;
+}
+
+.info-item label {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.info-item span {
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-left: 45px; /* Adjust for icon */
+}
+
+.btn-full, .btn-primary, .gradient-btn {
+    width: 100%;
+    padding: 1rem 2rem;
+    border-radius: var(--radius);
+    font-weight: 700;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.gradient-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+}
+
+.gradient-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.6);
+    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+}
+
+.alert {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin-bottom: 0;
+    color: var(--text-primary);
+}
+
+.trainings-section .section-header {
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.section-title {
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+}
+
+.trainings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.training-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.training-card:hover {
+    transform: translateY(-8px) rotate(1deg);
+    box-shadow: var(--shadow-lg);
+}
+
+.training-image-placeholder {
+    height: 160px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.training-image-placeholder::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.1);
+}
+
+.icon-large {
+    font-size: 4rem;
+    color: white;
+    opacity: 0.9;
+    z-index: 1;
+}
+
+.training-content {
+    padding: 2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.training-meta {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.training-tag {
+    color: var(--accent-color);
+    margin-right: 0.5rem;
+}
+
+.training-level {
+    background: rgba(236,72,153,0.1);
+    color: var(--accent-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.training-title {
+    margin: 0 0 0.75rem;
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.3;
+}
+
+.training-dates {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+}
+
+.training-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto;
+}
+
+.btn-outline-primary.gradient-border {
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--primary-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.gradient-border::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(99,102,241,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.gradient-border:hover::before {
+    left: 100%;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--success-color), #059669);
+    color: white;
+    border: none;
+    box-shadow: 0 2px 10px rgba(16,185,129,0.3);
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(16,185,129,0.4);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 2px dashed var(--border-color);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-state .icon-large {
+    font-size: 5rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    opacity: 0.5;
+}
+
+.empty-text {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-size: 1.125rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .welcome-title { font-size: 2rem; }
+    .welcome-banner, .profile-body, .training-content { padding: 1.5rem; }
+    .info-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .trainings-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .header-title { font-size: 1.25rem; }
+    .stat-card { flex-direction: column; text-align: center; }
+    .stat-icon-wrapper { margin-right: 0; margin-bottom: 1rem; }
+    .training-actions { flex-direction: column; }
+    .progress-circle { width: 120px; height: 120px; }
+    .progress-circle::before { width: 80px; height: 80px; }
+    .progress-value { font-size: 1.75rem; }
+}
+
+/* Enhanced Animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.stat-card, .profile-card, .training-card {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+.stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+.training-card:nth-child(odd) { animation-delay: 0.5s; }
+.training-card:nth-child(even) { animation-delay: 0.6s; }
+
+/* Theme Toggle Script */
+function toggleTheme() {
+    const body = document.body;
+    const currentTheme = body.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    const icon = document.querySelector('.theme-icon');
+    if (newTheme === 'dark') {
+        icon.classList.replace('fa-moon', 'fa-sun');
+    } else {
+        icon.classList.replace('fa-sun', 'fa-moon');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.body.setAttribute('data-theme', savedTheme);
+    const icon = document.querySelector('.theme-icon');
+    if (savedTheme === 'dark') {
+        icon.classList.replace('fa-moon', 'fa-sun');
+    }
+
+    // Animate progress circles
+    const circles = document.querySelectorAll('.progress-circle');
+    circles.forEach(circle => {
+        const progress = parseInt(circle.dataset.progress) || 0;
+        circle.style.setProperty('--progress', progress);
+        const value = circle.querySelector('.progress-value');
+        let start = 0;
+        const timer = setInterval(() => {
+            start += 2;
+            if (start > progress) start = progress;
+            value.textContent = start;
+            if (start >= progress) clearInterval(timer);
+        }, 20);
+    });
+});
+</style>
+
+<script>
+// Additional interactive elements
+document.addEventListener('DOMContentLoaded', () => {
+    // Add sparkle effect to header on load (optional, simple)
+    const header = document.querySelector('.dashboard-header');
+    header.style.animation = 'none';
+    setTimeout(() => {
+        header.style.animation = 'slideInFromTop 1s ease-out';
+    }, 100);
+});
+</script>
+
+{% endblock %}

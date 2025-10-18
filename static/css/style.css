@@ -1,6 +1,15 @@
 
 /*** Spinner Start ***/
 /*** Spinner ***/
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+main {
+    flex: 1;
+}
 #spinner {
     opacity: 0;
     visibility: hidden;

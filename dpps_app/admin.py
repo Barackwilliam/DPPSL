@@ -3,7 +3,7 @@ from django.utils.safestring import mark_safe
 
 from .models import Service,User_Testimonial
 
-from .forms import  ServiceAdminForm,BlogPostForm, User_TestimonialForm
+from .forms import  ServiceAdminForm,BlogPostForm, User_TestimonialForm,CertificateUploadForm
 
 # Register your models here.
 
@@ -125,3 +125,78 @@ class FAQAdmin(admin.ModelAdmin):
 from .models import ContactMessage
 
 admin.site.register(ContactMessage)
+
+
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
+from .models import Training, Participant
+
+class ParticipantInline(admin.StackedInline):
+    model = Participant
+    can_delete = False
+    verbose_name_plural = 'Taarifa za Mshiriki'
+    readonly_fields = ['date_registered']
+
+class CustomUserAdmin(UserAdmin):
+    inlines = [ParticipantInline]
+    list_display = ['username', 'email', 'get_full_name', 'get_status', 'date_joined']
+    list_filter = ['participant__status', 'date_joined']
+    
+    def get_full_name(self, obj):
+        if hasattr(obj, 'participant'):
+            return obj.participant.full_name
+        return "-"
+    get_full_name.short_description = "Jina Kamili"
+    
+    def get_status(self, obj):
+        if hasattr(obj, 'participant'):
+            return obj.participant.get_status_display()
+        return "-"
+    get_status.short_description = "Hali"
+
+@admin.register(Training)
+class TrainingAdmin(admin.ModelAdmin):
+    list_display = ['title', 'start_date', 'end_date']
+    list_filter = ['start_date', 'end_date']
+    search_fields = ['title']
+
+
+@admin.register(Participant)
+class ParticipantAdmin(admin.ModelAdmin):
+    form = CertificateUploadForm
+    list_display = ['full_name', 'user', 'training', 'participation_date', 'status', 'certificate_uploaded']
+    list_filter = ['status', 'training', 'participation_date']
+    search_fields = ['full_name', 'user__username', 'organization']
+    readonly_fields = ['date_registered']
+    actions = ['approve_participants', 'reject_participants']
+
+    def approve_participants(self, request, queryset):
+        queryset.update(status='approved')
+    approve_participants.short_description = "Approve selected participants"
+
+    def reject_participants(self, request, queryset):
+        queryset.update(status='rejected')
+    reject_participants.short_description = "Reject selected participants"
+
+    fieldsets = (
+        (None, {
+            'fields': ('user', 'full_name', 'phone_number')
+        }),
+        ('Training Details', {
+            'fields': ('training', 'participation_date', 'status')
+        }),
+        ('Organization', {
+            'fields': ('organization', 'position')
+        }),
+        ('Certificate', {
+            'fields': ('certificate',),
+            'description': 'Upload certificate file (PDF, DOCX, etc.) via Uploadcare. Supported formats are automatically handled.'
+        }),
+        ('Metadata', {
+            'fields': ('date_registered',),
+            'classes': ('collapse',)
+        }),
+    )
+admin.site.unregister(User)
+admin.site.register(User, CustomUserAdmin)
