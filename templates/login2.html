@@ -1,76 +1,74 @@
 {% extends 'base.html' %}
 
-{% block title %}Join Us - DPPS{% endblock %}
+{% block title %}Login - DPPS{% endblock %}
 
 {% block content %}
 <br><br><br>
-<div class="join-wrapper">
+
+<div class="login-wrapper">
     <!-- Enhanced Gradient Background -->
     <div class="bg-gradient-overlay"></div>
     
-    <!-- Main Join Section -->
-    <section class="join-section">
+    <!-- Main Login Section -->
+    <section class="login-section">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-6 col-md-8 col-12">
-                    <div class="join-card glass-effect animate__animated animate__fadeInUp">
+                <div class="col-lg-5 col-md-6 col-12">
+                    <div class="login-card glass-effect animate__animated animate__fadeInUp">
                         <!-- Card Header -->
                         <div class="card-header gradient-bg text-center">
                             <div class="header-icon-wrapper">
-                                <i class="fas fa-rocket header-icon"></i>
+                                <i class="fas fa-lock header-icon"></i>
                             </div>
-                            <h2 class="card-title">Join Our Platform Today</h2>
-                            <p class="card-subtitle">Create your free account and unlock professional opportunities</p>
+                            <h2 class="card-title">Sign In to Your Account</h2>
+                            <p class="card-subtitle">Welcome back! Please enter your credentials</p>
                         </div>
                         
                         <!-- Form Body -->
                         <div class="card-body">
-                            <form method="post">
+                            <form method="post" action="{% url 'login' %}">
+
                                 {% csrf_token %}
                                 
-                                {% for field in form %}
                                 <div class="form-field mb-4">
-                                    <label for="{{ field.id_for_label }}" class="form-label">
-                                        <i class="fas fa-{% if field.name == 'username' or field.name == 'full_name' %}user {% elif field.name == 'email' %}envelope {% elif field.name == 'phone_number' %}phone {% elif field.name == 'password1' %}lock {% elif field.name == 'password2' %}shield-alt {% else %}edit {% endif %}me-2"></i>
-                                        {{ field.label }}
+                                    <label for="username" class="form-label">
+                                        <i class="fas fa-user me-2"></i>Username
                                     </label>
                                     <div class="input-wrapper glass-effect">
-                                        {{ field }}
+                                        <i class="fas fa-user input-icon"></i>
+                                        <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" required>
                                     </div>
-                                    {% if field.help_text %}
-                                    <div class="form-help text-secondary">{{ field.help_text }}</div>
-                                    {% endif %}
-                                    {% for error in field.errors %}
-                                    <div class="error-message">
-                                        <i class="fas fa-exclamation-triangle me-1"></i>{{ error }}
-                                    </div>
-                                    {% endfor %}
                                 </div>
-                                {% endfor %}
+                                
+                                <div class="form-field mb-4">
+                                    <label for="password" class="form-label">
+                                        <i class="fas fa-key me-2"></i>Password
+                                    </label>
+                                    <div class="input-wrapper glass-effect">
+                                        <i class="fas fa-key input-icon"></i>
+                                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+                                    </div>
+                                </div>
                                 
                                 <button type="submit" class="btn btn-primary btn-full gradient-btn">
-                                    <i class="fas fa-paper-plane me-2"></i>Get Started
+                                    <i class="fas fa-sign-in-alt me-2"></i>Sign In
                                 </button>
                             </form>
                             
-                            <!-- Divider and Login Link -->
+                            <!-- Divider and Register Link -->
                             <div class="divider-section">
                                 <hr class="divider-line">
                                 <span class="divider-text">or</span>
                                 <hr class="divider-line">
                             </div>
                             
-                            <div class="login-link text-center">
-                                <p class="text-secondary mb-3">
-                                    Already a member? 
-                                    <a href="{% url 'login' %}" class="link-primary fw-semibold">
-                                        <i class="fas fa-sign-in-alt me-1"></i>Sign In
+                            <div class="register-link text-center">
+                                <p class="text-secondary mb-0">
+                                    Don't have an account? 
+                                    <a href="{% url 'register' %}" class="link-primary fw-semibold">
+                                        <i class="fas fa-user-plus me-1"></i>Register here
                                     </a>
                                 </p>
-                                <small class="text-muted">
-                                    By registering, you agree to our 
-                                    <a href="#" class="link-primary text-decoration-none">Privacy Policy</a>.
-                                </small>
                             </div>
                         </div>
                     </div>
@@ -120,7 +118,7 @@ body {
     position: relative;
 }
 
-.join-wrapper {
+.login-wrapper {
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
@@ -142,7 +140,7 @@ body {
     50% { opacity: 0.8; }
 }
 
-.join-section {
+.login-section {
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -155,7 +153,7 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-.join-card {
+.login-card {
     background: var(--glass-bg);
     backdrop-filter: blur(24px);
     border: 1px solid var(--glass-border);
@@ -166,7 +164,7 @@ body {
     position: relative;
 }
 
-.join-card::before {
+.login-card::before {
     content: '';
     position: absolute;
     top: 0;
@@ -176,7 +174,7 @@ body {
     background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
 }
 
-.join-card:hover {
+.login-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
@@ -265,9 +263,22 @@ body {
     position: relative;
 }
 
-.input-wrapper input,
-.input-wrapper select,
-.input-wrapper textarea {
+.input-wrapper .input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    z-index: 1;
+    transition: color 0.3s ease;
+}
+
+.input-wrapper input:focus + .input-icon,
+.input-wrapper input:not(:placeholder-shown) + .input-icon {
+    color: var(--primary-color);
+}
+
+.form-control {
     width: 100%;
     padding: 1.25rem 1rem 1.25rem 3rem;
     border: 1px solid var(--glass-border);
@@ -280,31 +291,15 @@ body {
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.input-wrapper input:focus,
-.input-wrapper select:focus,
-.input-wrapper textarea:focus {
+.form-control:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1), inset 0 0 0 1px var(--primary-color);
     background: rgba(255,255,255,0.2);
 }
 
-.input-wrapper input::placeholder {
+.form-control::placeholder {
     color: var(--text-secondary);
-}
-
-.form-help {
-    font-size: 0.85rem;
-    margin-top: 0.5rem;
-    opacity: 0.8;
-}
-
-.error-message {
-    font-size: 0.85rem;
-    margin-top: 0.5rem;
-    color: var(--danger-color);
-    display: flex;
-    align-items: center;
 }
 
 .btn-full {
@@ -318,15 +313,15 @@ body {
 }
 
 .gradient-btn {
-    background: linear-gradient(135deg, var(--success-color), #45b7d1);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
-    box-shadow: 0 4px 15px rgba(78, 205, 196, 0.4);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
 .gradient-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(78, 205, 196, 0.6);
-    background: linear-gradient(135deg, #45b7d1, var(--success-color));
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
 }
 
 .divider-section {
@@ -353,21 +348,21 @@ body {
     font-size: 0.9rem;
 }
 
-.login-link a {
+.register-link a {
     transition: color 0.3s ease;
 }
 
-.login-link a:hover {
+.register-link a:hover {
     color: var(--accent-color);
 }
 
-.login-link .link-primary {
+.register-link .link-primary {
     color: var(--primary-color);
 }
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
-    .join-section { padding: 1rem 0; }
+    .login-section { padding: 1rem 0; }
     
     .gradient-bg { padding: 2rem 1.5rem; }
     .header-icon-wrapper { width: 60px; height: 60px; margin-bottom: 1rem; }
@@ -377,9 +372,7 @@ body {
     
     .card-body { padding: 2rem 1.5rem; }
     
-    .input-wrapper input,
-    .input-wrapper select,
-    .input-wrapper textarea {
+    .form-control {
         padding: 1rem 0.875rem 1rem 2.5rem;
         font-size: 0.95rem;
     }
@@ -398,17 +391,13 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-.join-card { animation-delay: 0.2s; }
+.login-card { animation-delay: 0.2s; }
 </style>
 
 <script>
-// Form validation and animations
+// Form enhancements
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('form');
-    const inputs = document.querySelectorAll('input, select, textarea');
-    const submitBtn = document.querySelector('.gradient-btn');
-
-    // Input focus/blur animation
+    const inputs = document.querySelectorAll('.form-control');
     inputs.forEach(input => {
         input.addEventListener('focus', () => {
             input.parentElement.parentElement.style.transform = 'translateY(-2px)';
@@ -416,13 +405,33 @@ document.addEventListener('DOMContentLoaded', () => {
         input.addEventListener('blur', () => {
             input.parentElement.parentElement.style.transform = 'translateY(0)';
         });
+        
+        // Toggle password visibility
+        if (input.type === 'password') {
+            const toggleBtn = document.createElement('i');
+            toggleBtn.className = 'fas fa-eye input-icon-toggle';
+            toggleBtn.style.cssText = 'position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-secondary); cursor: pointer; z-index: 1; transition: color 0.3s ease;';
+            input.parentElement.appendChild(toggleBtn);
+            toggleBtn.addEventListener('click', () => {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    toggleBtn.classList.remove('fa-eye');
+                    toggleBtn.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    toggleBtn.classList.remove('fa-eye-slash');
+                    toggleBtn.classList.add('fa-eye');
+                }
+            });
+        }
     });
-
-    // Form submit event
-    form.addEventListener('submit', (e) => {
-        if (form.checkValidity()) {
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Creating Account...';
-            submitBtn.disabled = true; // disable to prevent multiple clicks
+    
+    // Submit button animation
+    const submitBtn = document.querySelector('.gradient-btn');
+    submitBtn.addEventListener('click', (e) => {
+        if (submitBtn.form.checkValidity()) {
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Signing In...';
+            submitBtn.disabled = true;
         }
     });
 });

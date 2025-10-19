@@ -26,8 +26,18 @@
                         
                         <!-- Form Body -->
                         <div class="card-body">
-                            <form method="post">
+                            <form method="post" action="{% url 'login' %}">
+
                                 {% csrf_token %}
+                                
+                                <!-- Display any messages (error, success) -->
+                                {% if messages %}
+                                    <div class="alert alert-danger">
+                                        {% for message in messages %}
+                                            <p>{{ message }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
                                 
                                 <div class="form-field mb-4">
                                     <label for="username" class="form-label">
@@ -76,6 +86,7 @@
         </div>
     </section>
 </div>
+
 
 <style>
 :root {
@@ -396,7 +407,11 @@ body {
 <script>
 // Form enhancements
 document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('form');
     const inputs = document.querySelectorAll('.form-control');
+    const submitBtn = document.querySelector('.gradient-btn');
+
+    // Input focus/blur animation
     inputs.forEach(input => {
         input.addEventListener('focus', () => {
             input.parentElement.parentElement.style.transform = 'translateY(-2px)';
@@ -404,13 +419,14 @@ document.addEventListener('DOMContentLoaded', () => {
         input.addEventListener('blur', () => {
             input.parentElement.parentElement.style.transform = 'translateY(0)';
         });
-        
+
         // Toggle password visibility
         if (input.type === 'password') {
             const toggleBtn = document.createElement('i');
             toggleBtn.className = 'fas fa-eye input-icon-toggle';
             toggleBtn.style.cssText = 'position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-secondary); cursor: pointer; z-index: 1; transition: color 0.3s ease;';
             input.parentElement.appendChild(toggleBtn);
+
             toggleBtn.addEventListener('click', () => {
                 if (input.type === 'password') {
                     input.type = 'text';
@@ -424,11 +440,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
-    
-    // Submit button animation
-    const submitBtn = document.querySelector('.gradient-btn');
-    submitBtn.addEventListener('click', (e) => {
-        if (submitBtn.form.checkValidity()) {
+
+    // Form submit event
+    form.addEventListener('submit', (e) => {
+        if (form.checkValidity()) {
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Signing In...';
             submitBtn.disabled = true;
         }
