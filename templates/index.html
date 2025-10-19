@@ -1,98 +1,652 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+<!-- Custom CSS for Professional and Responsive Design -->
+<style>
+    :root {
+        --primary: #1a73e8;
+        --secondary: #f8f9fa;
+        --text-dark: #212529;
+        --text-light: #ffffff;
+    }
 
-           <!-- Carousel Start -->
-    <div class="header-carousel owl-carousel">
-        <!-- Slide 1 -->
-        <div class="header-carousel-item">
-            <img src="{% static 'img/carousel-1.jpg' %}" class="img-fluid w-100" alt="DPPS Solutions">
-            <div class="carousel-caption">
-                <div class="container">
-                    <div class="row gy-0 gx-5">
-                        <div class="col-lg-0 col-xl-5"></div>
-                        <div class="col-xl-7 animated fadeInLeft">
-                            <div class="text-sm-center text-md-end">
-                                <h4 class="text-primary text-uppercase fw-bold mb-4">Welcome To DPPS</h4>
-                                <h1 class="display-4 text-uppercase text-white mb-4">
-                                    Development Project Planning Solution Limited
-                                </h1>
-                                <p class="mb-5 fs-5">
-                                    We are a Zanzibar-based company specializing in Project Development
-                                    and all project-related activities, including mapping and architectural drawings.
-                                    Our team is dedicated to transforming ideas into actionable and sustainable plans.
-                                </p>
-                                <div class="d-flex justify-content-center justify-content-md-end flex-shrink-0 mb-4">
-                                    <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="{% url 'register' %}">
-                                        <i class="fas fa-play-circle me-2"></i> Register
-                                    </a>
-                                    <a class="btn btn-primary rounded-pill py-3 px-4 px-md-5 ms-2" href="{% url 'login' %}">
-                                        Login
-                                    </a>
-                                </div>
+    body {
+        font-family: 'Inter', sans-serif;
+        color: var(--text-dark);
+        line-height: 1.6;
+    }
+
+    .header-carousel {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .header-carousel-item {
+        position: relative;
+        min-height: 400px;
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    }
+
+    .header-carousel-item img {
+        object-fit: cover;
+        height: 100%;
+        min-height: 400px;
+    }
+
+    .carousel-caption {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 20px;
+        width: 100%;
+    }
+
+    .carousel-caption h1 {
+        font-size: clamp(1.5rem, 5vw, 3rem);
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    .carousel-caption p {
+        font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+        max-width: 600px;
+        margin: 0 auto 1.5rem;
+    }
+
+    .btn-primary, .btn-light {
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+
+    .btn-primary:hover, .btn-light:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .about, .service, .feature, .offer-section {
+        padding: 60px 0;
+        background: var(--secondary);
+    }
+
+    .about .row, .service .row, .feature .row, .offer-section .row {
+        align-items: center;
+    }
+
+    .service-item, .feature-item {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .service-item:hover, .feature-item:hover {
+        transform: translateY(-5px);
+    }
+
+    .service-img img {
+        object-fit: cover;
+        height: 200px;
+    }
+
+    .nav-pills .nav-link {
+        border-radius: 8px;
+        margin-bottom: 10px;
+        background: #fff;
+        color: var(--text-dark);
+        transition: all 0.3s ease;
+    }
+
+    .nav-pills .nav-link.active {
+        background: var(--primary);
+        color: var(--text-light);
+    }
+
+    @media (max-width: 768px) {
+        .carousel-caption {
+            padding: 15px;
+        }
+
+        .carousel-caption h1 {
+            font-size: 1.8rem;
+        }
+
+        .carousel-caption p {
+            font-size: 0.9rem;
+        }
+
+        .btn-primary, .btn-light {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        .about .col-xl-7, .about .col-xl-5 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+
+        .offer-section .col-xl-5, .offer-section .col-xl-7 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+
+        .service-item, .feature-item {
+            margin-bottom: 20px;
+        }
+    }
+</style>
+
+<!-- Carousel Start -->
+<div class="header-carousel owl-carousel">
+    <!-- Slide 1 -->
+    <div class="header-carousel-item">
+        <img src="/static/img/carousel-1.jpg" class="img-fluid w-100" alt="DPPS Solutions">
+        <div class="carousel-caption">
+            <div class="container">
+                <div class="row gy-0 gx-4 align-items-center">
+                    <div class="col-lg-0 col-xl-5"></div>
+                    <div class="col-xl-7 animated fadeInLeft">
+                        <div class="text-sm-center text-md-end">
+                            <h4 class="text-primary text-uppercase fw-bold mb-4">Welcome To DPPS</h4>
+                            <h1 class="display-4 text-uppercase text-white mb-4">
+                                Development Project Planning Solution Limited
+                            </h1>
+                            <p class="mb-5 fs-5 text-white">
+                                We are a Zanzibar-based company specializing in project development, mapping, and architectural design — turning ideas into sustainable plans.                            </p>
+                            <div class="d-flex justify-content-center justify-content-md-end flex-shrink-0 mb-4 gap-3">
+                                <a class="btn btn-light rounded-pill py-2 px-4" href="/register/">
+                                    <i class="fas fa-user-plus me-2"></i> Register
+                                </a>
+                                <a class="btn btn-primary rounded-pill py-2 px-4" href="/login/">
+                                    <i class="fas fa-sign-in-alt me-2"></i> Login
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Slide 2 -->
-        <div class="header-carousel-item">
-            <img src="{% static 'img/carousel-2.jpg' %}" class="img-fluid w-100" alt="DPPS Solutions">
-            <div class="carousel-caption">
-                <div class="container">
-                    <div class="row g-5">
-                        <div class="col-12 animated fadeInUp">
-                            <div class="text-center">
-                                <h4 class="text-primary text-uppercase fw-bold mb-4">Capacity Building</h4>
-                                <h1 class="display-4 text-uppercase text-white mb-4">
-                                    Training That Empowers Professionals
-                                </h1>
-                                <p class="mb-5 fs-5">
-                                    We provide short-term training in key areas such as Management and Leadership,
-                                    Customer Service, Project Proposal Writing, and Grant Project Proposal Training —
-                                    equipping individuals and organizations with the skills to succeed.
-                                </p>
-                                <div class="d-flex justify-content-center flex-shrink-0 mb-4">
-                                    <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="{% url 'register' %}">
-                                        <i class="fas fa-play-circle me-2"></i> Register
-                                    </a>
-                                    <a class="btn btn-primary rounded-pill py-3 px-4 px-md-5 ms-2" href="{% url 'login' %}">
-                                         Login
-                                    </a>
-                                </div>
+    <!-- Slide 2 -->
+    <div class="header-carousel-item">
+        <img src="/static/img/carousel-2.jpg" class="img-fluid w-100" alt="DPPS Solutions">
+        <div class="carousel-caption">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-12 animated fadeInUp">
+                        <div class="text-center">
+                            <h4 class="text-primary text-uppercase fw-bold mb-4">Capacity Building</h4>
+                            <h1 class="display-4 text-uppercase text-white mb-4">
+                                Training That Empowers Professionals
+                            </h1>
+                            <p class="mb-5 fs-5 text-white">
+                        We offer short-term training in leadership, customer service, and proposal writing to build success skills.                            <div class="d-flex justify-content-center flex-shrink-0 mb-4 gap-3">
+                                <a class="btn btn-light rounded-pill py-2 px-4" href="/register/">
+                                    <i class="fas fa-user-plus me-2"></i> Register
+                                </a>
+                                <a class="btn btn-primary rounded-pill py-2 px-4" href="/login/">
+                                    <i class="fas fa-sign-in-alt me-2"></i> Login
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Slide 3 -->
-        <div class="header-carousel-item">
-            <img src="{% static 'img/carousel-2.jpg' %}" class="img-fluid w-100" alt="DPPS Solutions">
-            <div class="carousel-caption">
-                <div class="container">
-                    <div class="row g-5">
-                        <div class="col-12 animated fadeInUp">
-                            <div class="text-center">
-                                <h4 class="text-primary text-uppercase fw-bold mb-4">Project Planning</h4>
-                                <h1 class="display-4 text-uppercase text-white mb-4">
-                                    From Ideas To Action Plans
-                                </h1>
-                                <p class="mb-5 fs-5">
-                                    DPPS handles all aspects of project development including business plans,
-                                    strategic plans, and action plans. We ensure every project is well-structured,
-                                    realistic, and aligned with your long-term goals.
-                                </p>
-                                <div class="d-flex justify-content-center flex-shrink-0 mb-4">
-                                    <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="{% url 'register' %}">
-                                        <i class="fas fa-play-circle me-2"></i> Register
-                                    </a>
-                                    <a class="btn btn-primary rounded-pill py-3 px-4 px-md-5 ms-2" href="{% url 'login' %}">
-                                       Login
-                                    </a>
+    <!-- Slide 3 -->
+    <div class="header-carousel-item">
+        <img src="/static/img/carousel-2.jpg" class="img-fluid w-100" alt="DPPS Solutions">
+        <div class="carousel-caption">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-12 animated fadeInUp">
+                        <div class="text-center">
+                            <h4 class="text-primary text-uppercase fw-bold mb-4">Project Planning</h4>
+                            <h1 class="display-4 text-uppercase text-white mb-4">
+                                From Ideas To Action Plans
+                            </h1>
+                            <p class="mb-5 fs-5 text-white">
+                                DPPS handles all aspects of project development including business plans, strategic plans, and action plans. We ensure every project is well-structured, realistic, and aligned with your long-term goals.
+                            </p>
+                            <div class="d-flex justify-content-center flex-shrink-0 mb-4 gap-3">
+                                <a class="btn btn-light rounded-pill py-2 px-4" href="/register/">
+                                    <i class="fas fa-user-plus me-2"></i> Register
+                                </a>
+                                <a class="btn btn-primary rounded-pill py-2 px-4" href="/login/">
+                                    <i class="fas fa-sign-in-alt me-2"></i> Login
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Carousel End -->
+
+<!-- About Start -->
+<div class="container-fluid about py-5">
+    <div class="container py-5">
+        <div class="row g-5 align-items-center">
+            <div class="col-xl-7">
+                <div>
+                    <h4 class="text-primary">About Us</h4>
+                    <h1 class="display-5 mb-4">Development Project Planning Solution (DPPS)</h1>
+                    <p class="mb-4">
+                        Development Project Planning Solution Limited is a Zanzibar-based company specializing in Project Development and all project-related activities, including mapping and architectural drawings.
+                    </p>
+                    <p class="mb-4">
+                        Additionally, we offer short-term training in fields such as Management and Leadership, Customer Service, Project Proposal Writing, and Grant Project Proposal Writing. We also handle all aspects of project development, including Business Plans, Strategic Plans, and Action Plans.
+                    </p>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-bookmark-heart-fill fa-3x text-primary me-3"></i>
+                                <div>
+                                    <h4>Our Location</h4>
+                                    <p>Fuoni, Zanzibar - Tanzania</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-phone-alt fa-2x text-primary me-3"></i>
+                                <div>
+                                    <h4>Call Us</h4>
+                                    <p class="mb-0 fs-5">0719686864</p>
+                                    <p class="mb-0 fs-5">0772997018</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <a href="/about/" class="btn btn-primary rounded-pill py-3 px-5 mt-3">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-5">
+                <div class="bg-primary rounded position-relative overflow-hidden">
+                    <img src="/static/img/about-2.png" class="img-fluid rounded w-100" alt="">
+                    <div style="position: absolute; top: -15px; right: -15px;">
+                        <img src="/static/img/about-3.png" class="img-fluid" style="width: 120px; height: 120px; opacity: 0.7;" alt="">
+                    </div>
+                    
+                    <div class="rounded-bottom">
+                        <img src="/static/img/about-5.jpg" class="img-fluid rounded-bottom w-100" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+
+<!-- Services Start -->
+<div class="container-fluid service pb-5">
+    <div class="container pb-5">
+        <div class="text-center mx-auto pb-5" style="max-width: 800px;">
+            <h4 class="text-primary">Our Services</h4>
+            <h1 class="display-5 mb-4">What We Do Best</h1>
+            <p class="mb-0">
+                We provide professional project planning, consultancy, training, and development solutions to empower organizations, companies, and individuals to achieve sustainable success.
+            </p>
+        </div>
+        <div class="row g-4">
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="service-item">
+                    <div class="service-img">
+                        <img src="https://36w5gsdu79.ucarecd.net/f512902e-2717-4796-8323-bc57fb6e050e/" class="img-fluid rounded-top w-100" alt="Image">
+                    </div>
+                    <div class="rounded-bottom p-4">
+                        <a href="#" class="h4 d-inline-block mb-4">Partnership  &amp; Collaboration</a>
+                        <p class="mb-4">We partner with governments, companies, and organizations to achieve shared development goals.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="service-item">
+                    <div class="service-img">
+                        <img src="https://36w5gsdu79.ucarecd.net/72346015-6024-4526-9dac-63f409bb08f8/" class="img-fluid rounded-top w-100" alt="Image">
+                    </div>
+                    <div class="rounded-bottom p-4">
+                        <a href="#" class="h4 d-inline-block mb-4">Project Proposal Writting</a>
+                        <p class="mb-4">We prepare professional proposals and business plans for NGOs, companies and individuals.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="service-item">
+                    <div class="service-img">
+                        <img src="https://36w5gsdu79.ucarecd.net/776794cc-dd16-4a7c-81c6-3e82a61acdf2/" class="img-fluid rounded-top w-100" alt="Image">
+                    </div>
+                    <div class="rounded-bottom p-4">
+                        <a href="#" class="h4 d-inline-block mb-4">Architecture &amp; Urban Planning</a>
+                        <p class="mb-4">We provide architectural drawings, building design, and urban planning solutions.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12 text-center">
+                <a class="btn btn-primary rounded-pill py-3 px-5 mt-4" href="/services/">View More Services</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Services End -->
+
+<!-- Features Start -->
+<div class="container-fluid feature pb-5">
+    <div class="container pb-5">
+        <div class="text-center mx-auto pb-5" style="max-width: 800px;">
+            <h4 class="text-primary">Our Features</h4>
+            <h1 class="display-5 mb-4">Turning Ideas into Successful Projects</h1>
+            <p class="mb-0">
+                At Development Project Planning Solution Limited, we combine creativity, experience, and professionalism to deliver solutions that add real value. From project design to implementation and capacity building, we empower businesses, institutions, and individuals to achieve their goals.
+            </p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div class="feature-item p-4">
+                    <div class="feature-icon p-4 mb-4">
+                        <i class="fas fa-project-diagram fa-4x text-primary"></i>
+                    </div>
+                    <h4>Project Development</h4>
+                    <p class="mb-4">
+                        From concept to completion, we design, plan, and implement projects that create lasting impact.
+                    </p>
+                    <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Learn More</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div class="feature-item p-4">
+                    <div class="feature-icon p-4 mb-4">
+                        <i class="fas fa-drafting-compass fa-4x text-primary"></i>
+                    </div>
+                    <h4>Mapping & Design</h4>
+                    <p class="mb-4">
+                        We provide professional mapping, architectural drawings, and technical designs tailored to client needs.
+                    </p>
+                    <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Learn More</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div class="feature-item p-4">
+                    <div class="feature-icon p-4 mb-4">
+                        <i class="fas fa-chalkboard-teacher fa-4x text-primary"></i>
+                    </div>
+                    <h4>Professional Training</h4>
+                    <p class="mb-4">
+                        Short-term courses in leadership, customer service, and proposal writing to build your team’s capacity.
+                    </p>
+                    <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Learn More</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div class="feature-item p-4">
+                    <div class="feature-icon p-4 mb-4">
+                        <i class="fas fa-file-signature fa-4x text-primary"></i>
+                    </div>
+                    <h4>Business Planning</h4>
+                    <p class="mb-4">
+                        We prepare business plans, strategic plans, and action plans that position organizations for success.
+                    </p>
+                    <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Features End -->
+
+
+
+<!-- Custom CSS for Enhanced Offer Section -->
+<style>
+    :root {
+        --primary: #1a73e8;
+        --secondary: #f8f9fa;
+        --text-dark: #212529;
+        --text-light: #ffffff;
+        --gradient: linear-gradient(135deg, #1a73e8, #4c8bf5);
+    }
+
+    .offer-section {
+        padding: 80px 0;
+        background: var(--secondary);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .offer-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient);
+        opacity: 0.05;
+        z-index: 0;
+    }
+
+    .offer-section .container {
+        position: relative;
+        z-index: 1;
+    }
+
+    .offer-section h1 {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+
+    .offer-section h4 {
+        color: var(--primary);
+        font-weight: 600;
+    }
+
+    .offer-section p {
+        font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .nav-pills .nav-link {
+        background: #fff;
+        border-radius: 12px;
+        margin-bottom: 15px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        color: var(--text-dark);
+    }
+
+    .nav-pills .nav-link.active {
+        background: var(--primary);
+        color: var(--text-light);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-pills .nav-link:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .nav-pills .nav-link i {
+        margin-right: 15px;
+        font-size: 1.5rem;
+    }
+
+    .tab-content .tab-pane {
+        background: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .tab-content img {
+        object-fit: cover;
+        height: 250px;
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+    }
+
+    .tab-content img:hover {
+        transform: scale(1.05);
+    }
+
+    .tab-content h1 {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 600;
+    }
+
+    .tab-content p {
+        font-size: 1rem;
+        color: #555;
+    }
+
+    .btn-primary {
+        background: var(--primary);
+        border: none;
+        border-radius: 50px;
+        padding: 10px 24px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background: #1557b0;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 768px) {
+        .offer-section {
+            padding: 40px 0;
+        }
+
+        .offer-section h1 {
+            font-size: 2rem;
+        }
+
+        .offer-section .col-xl-5, .offer-section .col-xl-7 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+
+        .tab-content img {
+            height: 200px;
+            margin-bottom: 15px;
+        }
+
+        .nav-pills .nav-link {
+            padding: 15px;
+        }
+
+        .nav-pills .nav-link i {
+            font-size: 1.2rem;
+        }
+    }
+</style>
+
+<!-- Offer Start -->
+<div class="container-fluid offer-section pb-5">
+    <div class="container pb-5">
+        <div class="text-center mx-auto pb-5" style="max-width: 800px;">
+            <h4 class="text-primary">Our Offer</h4>
+            <h1 class="display-5 mb-4">Transformative Benefits for Our Clients</h1>
+            <p class="mb-0">
+                At Development Project Planning Solution Limited, we deliver innovative, reliable, and client-focused services. Our approach ensures every project is executed with creativity and professionalism, meeting both local and international standards.
+            </p>
+        </div>
+        <div class="row g-5 align-items-center">
+            <div class="col-xl-5">
+                <div class="nav nav-pills bg-light rounded p-4">
+                    <a class="nav-link p-4 active mb-3" data-bs-toggle="pill" href="#collapseOne">
+                        <i class="fas fa-project-diagram"></i>
+                        <h5 class="mb-0">Comprehensive Project Development</h5>
+                    </a>
+                    <a class="nav-link p-4 mb-3" data-bs-toggle="pill" href="#collapseTwo">
+                        <i class="fas fa-drafting-compass"></i>
+                        <h5 class="mb-0">Professional Mapping & Architectural Design</h5>
+                    </a>
+                    <a class="nav-link p-4 mb-3" data-bs-toggle="pill" href="#collapseThree">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <h5 class="mb-0">Capacity Building & Short-Term Training</h5>
+                    </a>
+                    <a class="nav-link p-4 mb-0" data-bs-toggle="pill" href="#collapseFour">
+                        <i class="fas fa-file-signature"></i>
+                        <h5 class="mb-0">Business & Strategic Planning Support</h5>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xl-7">
+                <div class="tab-content">
+                    <div id="collapseOne" class="tab-pane fade show p-0 active">
+                        <div class="row g-4">
+                            <div class="col-md-7">
+                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-olGCYEPACF1N0zRNHd7gBoc5IjEAkHYMMw&s" class="img-fluid w-100 rounded" alt="Mapping & Design">
+
+                            </div>
+                            <div class="col-md-5 d-flex align-items-center">
+                                <div>
+                                    <h1 class="display-6 mb-3">Project Development</h1>
+                                    <p class="mb-4">
+                                        We guide clients through every stage of project development — from ideation to implementation — ensuring innovation, compliance, and sustainable impact.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="collapseTwo" class="tab-pane fade p-0">
+                        <div class="row g-4">
+                            <div class="col-md-7">
+                                <img src="https://static-images.vnncdn.net/vps_images_publish/000001/000003/2025/8/2/2026-2042.jpg?width=760&s=1FShxViCBZoYIvud2fWEKA" class="img-fluid w-100 rounded" alt="Mapping & Design">
+                            </div>
+                            <div class="col-md-5 d-flex align-items-center">
+                                <div>
+                                    <h1 class="display-6 mb-3">Mapping & Design</h1>
+                                    <p class="mb-4">
+                                        Our team delivers precise mapping and architectural drawing services, supporting public and private sector projects with creativity and technical expertise.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="collapseThree" class="tab-pane fade p-0">
+                        <div class="row g-4">
+                            <div class="col-md-7">
+                                <img src="https://media.licdn.com/dms/image/v2/D4E12AQGZJ8NmyIgFMA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1731059369970?e=2147483647&v=beta&t=mQxaMBnhy6XjeAbTSdLifrEDoP8tQH26exzqrnQYOPk" class="img-fluid w-100 rounded" alt="Training & Capacity Building">
+                            </div>
+                            <div class="col-md-5 d-flex align-items-center">
+                                <div>
+                                    <h1 class="display-6 mb-3">Training & Capacity Building</h1>
+                                    <p class="mb-4">
+                                        Our short-term courses in leadership, customer service, and proposal writing empower individuals and organizations to unlock their full potential.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="collapseFour" class="tab-pane fade p-0">
+                        <div class="row g-4">
+                            <div class="col-md-7">
+                                <img src="/static/img/offer-4.jpg" class="img-fluid w-100 rounded" alt="Business Planning">
+                            </div>
+                            <div class="col-md-5 d-flex align-items-center">
+                                <div>
+                                    <h1 class="display-6 mb-3">Business Planning</h1>
+                                    <p class="mb-4">
+                                        From strategic plans to actionable roadmaps, we provide expert guidance to strengthen decision-making and drive organizational growth.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -101,269 +655,7 @@
             </div>
         </div>
     </div>
-    <!-- Carousel End -->
-
-        <!-- Navbar & Hero End -->
-
-
-        <!-- Abvout Start -->
-        <div class="container-fluid about py-5">
-            <div class="container py-5">
-                <div class="row g-5 align-items-center">
-                    <div class="col-xl-7 wow">
-                        <div>
-                            <h4 class="text-primary">About Us</h4>
-                            <h1 class="display-5 mb-4">Development Project Planning Solution (DPPS)</h1>
-                            <p class="mb-4">Development Project Planning Solution Limited is a company based in Zanzibar, that specializes in Project Development and all project-related activities, including mapping and architectural drawings.
-                            </p>
-                             <p class="mb-4">
-                                Additionally, the company offers short-term training in various fields such as Management and Leadership, Customer Service, Project Proposal Writing, and Grant Project Proposal Writing. The company also handles all aspects of project development, including writing Business Plans, Strategic Plans, and Action Plans.
-                            </p>
-                                    <div class="row g-4">
-                               
-                                <div class="col-md-6 col-lg-6 col-xl-6">
-                                    <div class="d-flex">
-                                        <div><i class="bi bi-bookmark-heart-fill fa-3x text-primary"></i></div>
-                                        <div class="ms-4">
-                                            <h4>Our Location</h4>
-                                    <p>Fuoni, Zanzibar - Tanzania</p>
-                                        </div>
-                                    </div>
-                                </div>
-                               
-                                <div class="col-sm-6">
-                                    <div class="d-flex">
-                                        <i class="fas fa-phone-alt fa-2x text-primary me-4"></i>
-                                        <div>
-                                            <h4>Call Us</h4>
-                                            <p class="mb-0 fs-5" style="letter-spacing: 1px;">0719686864</p>
-                                            <p class="mb-0 fs-5" style="letter-spacing: 1px;">0772997018</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <a href="{% url 'about' %}" class="btn btn-primary rounded-pill py-3 px-5 flex-shrink-0">Learn More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-5 wow fadeInRight">
-                        <div class="bg-primary rounded position-relative overflow-hidden">
-                                <img src="{% static 'img/about-2.png' %}" class="img-fluid rounded w-100" alt="">
-                            <div class="" style="position: absolute; top: -15px; right: -15px;">
-                                <img src="{% static 'img/about-3.png' %}" class="img-fluid" style="width: 150px; height: 150px; opacity: 0.7;" alt="">
-                            </div>
-                            <div class="" style="position: absolute; top: -20px; left: 10px; transform: rotate(90deg);">
-                                <img src="{% static 'img/about-4.png' %}" class="img-fluid" style="width: 100px; height: 150px; opacity: 0.9;" alt="">
-                            </div>
-                            <div class="rounded-bottom">
-                                <img src="{% static 'img/about-5.jpg' %}" class="img-fluid rounded-bottom w-100" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- About End -->
-
-        <!-- Services Start -->
-        <div class="container-fluid service pb-5">
-            <div class="container pb-5">
-                <div class="text-center mx-auto pb-5 wow" style="max-width: 800px;">
-                    <h4 class="text-primary">Our Services</h4>
-                    <h1 class="display-5 mb-4">What We Do Best</h1>
-                    <p class="mb-0">We provide professional project planning, consultancy, training and development solutions to empower organizations, companies, and individuals to achieve sustainable success.
-                    </p>
-                </div>
-                <div class="row g-4">
-                    {% for i in service %}
-                    <div class="col-md-6 col-lg-4 wow">
-                        <div class="service-item">
-                            <div class="service-img">
-                                <img src="{{i.image}}" class="img-fluid rounded-top w-100" alt="Image">
-                            </div>
-                            <div class="rounded-bottom p-4">
-                                <a href="#" class="h4 d-inline-block mb-4"> {{i.title}}</a>
-                                <p class="mb-4">{{i.description}}
-                                </p>
-                                <!-- <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Learn More</a> -->
-                            </div>
-                        </div>
-                    </div>
-                      {% endfor %}
-                 <a class="btn btn-primary rounded-pill py-2 px-12" href="{% url 'services' %}">View More Services</a>
-
-                </div>
-            </div>
-        </div>
-        <!-- Services End -->
-        <!-- Features Start -->
-        <div class="container-fluid feature pb-5">
-            <div class="container pb-5">
-                <div class="text-center mx-auto pb-5 wow" style="max-width: 800px;">
-                    <h4 class="text-primary">Our Features</h4>
-                    <h1 class="display-5 mb-4">Turning ideas into successful and sustainable projects</h1>
-                    <p class="mb-0">
-                        At Development Project Planning Solution Limited, we combine creativity, experience, and professionalism 
-                        to deliver solutions that add real value. From project design to implementation and capacity building, 
-                        we are committed to empowering businesses, institutions, and individuals to achieve their goals.
-                    </p>
-                </div>
-                <div class="row g-4">
-                    <div class="col-md-6 col-lg-6 col-xl-3 wow">
-                        <div class="feature-item p-4">
-                            <div class="feature-icon p-4 mb-4">
-                                <i class="fas fa-project-diagram fa-4x text-primary"></i>
-                            </div>
-                            <h4>Project Development</h4>
-                            <p class="mb-4">
-                                From concept to completion, we design, plan, and implement projects that create lasting impact.
-                            </p>
-                            <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Learn More</a>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3 wow">
-                        <div class="feature-item p-4">
-                            <div class="feature-icon p-4 mb-4">
-                                <i class="fas fa-drafting-compass fa-4x text-primary"></i>
-                            </div>
-                            <h4>Mapping & Design</h4>
-                            <p class="mb-4">
-                                We provide professional mapping, architectural drawings, and technical designs tailored to client needs.
-                            </p>
-                            <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Learn More</a>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3 wow">
-                        <div class="feature-item p-4">
-                            <div class="feature-icon p-4 mb-4">
-                                <i class="fas fa-chalkboard-teacher fa-4x text-primary"></i>
-                            </div>
-                            <h4>Professional Training</h4>
-                            <p class="mb-4">
-                                Short-term courses in leadership, customer service, and proposal writing to build your team’s capacity.
-                            </p>
-                            <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Learn More</a>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3 wow">
-                        <div class="feature-item p-4">
-                            <div class="feature-icon p-4 mb-4">
-                                <i class="fas fa-file-signature fa-4x text-primary"></i>
-                            </div>
-                            <h4>Business Planning</h4>
-                            <p class="mb-4">
-                                We prepare business plans, strategic plans, and action plans that position organizations for success.
-                            </p>
-                            <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Learn More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Features End -->
-        <!-- Offer Start -->
-        <div class="container-fluid offer-section pb-5">
-            <div class="container pb-5">
-                <div class="text-center mx-auto pb-5 wow" data-wow-delay="0.2s" style="max-width: 800px;">
-                    <h4 class="text-primary">Our Offer</h4>
-                    <h1 class="display-5 mb-4">Benefits We Offer to Our Clients</h1>
-                    <p class="mb-0">
-                        Development Project Planning Solution Limited is committed to providing innovative, reliable, and 
-                        client-centered services. We ensure that every project is handled with professionalism and creativity 
-                        to deliver results that meet both local and international standards.  
-                    </p>
-                </div>
-                <div class="row g-5 align-items-center">
-                    <div class="col-xl-5 wow">
-                        <div class="nav nav-pills bg-light rounded p-5">
-                            <a class="accordion-link p-4 active mb-4" data-bs-toggle="pill" href="#collapseOne">
-                                <h5 class="mb-0">Comprehensive Project Development</h5>
-                            </a>
-                            <a class="accordion-link p-4 mb-4" data-bs-toggle="pill" href="#collapseTwo">
-                                <h5 class="mb-0">Professional Mapping & Architectural Design</h5>
-                            </a>
-                            <a class="accordion-link p-4 mb-4" data-bs-toggle="pill" href="#collapseThree">
-                                <h5 class="mb-0">Capacity Building & Short-Term Training</h5>
-                            </a>
-                            <a class="accordion-link p-4 mb-0" data-bs-toggle="pill" href="#collapseFour">
-                                <h5 class="mb-0">Business & Strategic Planning Support</h5>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-xl-7 wow">
-                        <div class="tab-content">
-                            <div id="collapseOne" class="tab-pane fade show p-0 active">
-                                <div class="row g-4">
-                                    <div class="col-md-7">
-                                        <img src="img/offer-1.jpg" class="img-fluid w-100 rounded" alt="">
-                                    </div>
-                                    <div class="col-md-5">
-                                        <h1 class="display-6 mb-3">Project Development</h1>
-                                        <p class="mb-4">
-                                            We guide our clients through every stage of project development — from 
-                                            idea generation to full implementation — ensuring innovation, compliance, 
-                                            and sustainability.
-                                        </p>
-                                        <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Discover More</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="collapseTwo" class="tab-pane fade show p-0">
-                                <div class="row g-4">
-                                    <div class="col-md-7">
-                                        <img src="img/offer-2.jpg" class="img-fluid w-100 rounded" alt="">
-                                    </div>
-                                    <div class="col-md-5">
-                                        <h1 class="display-6 mb-3">Mapping & Design</h1>
-                                        <p class="mb-4">
-                                            Our team provides professional mapping and architectural drawing services 
-                                            to support both private and public sector projects with high precision and creativity.
-                                        </p>
-                                        <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Discover More</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="collapseThree" class="tab-pane fade show p-0">
-                                <div class="row g-4">
-                                    <div class="col-md-7">
-                                        <img src="img/offer-1.jpg" class="img-fluid w-100 rounded" alt="">
-                                    </div>
-                                    <div class="col-md-5">
-                                        <h1 class="display-6 mb-3">Training & Capacity Building</h1>
-                                        <p class="mb-4">
-                                            We offer short-term courses including leadership, customer service, 
-                                            and proposal writing — empowering individuals and organizations 
-                                            to reach their full potential.
-                                        </p>
-                                        <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Discover More</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="collapseFour" class="tab-pane fade show p-0">
-                                <div class="row g-4">
-                                    <div class="col-md-7">
-                                        <img src="img/offer-4.jpg" class="img-fluid w-100 rounded" alt="">
-                                    </div>
-                                    <div class="col-md-5">
-                                        <h1 class="display-6 mb-3">Business Planning</h1>
-                                        <p class="mb-4">
-                                            From strategic plans to action plans, we support clients with expert guidance 
-                                            that strengthens decision-making and ensures growth.
-                                        </p>
-                                        <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Discover More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Offer End -->
-
+</div>
 
 {% include 'testimonial_section.html' %}
-
 {% endblock %}

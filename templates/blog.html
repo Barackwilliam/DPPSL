@@ -1,53 +1,158 @@
 {% extends 'base.html' %}
-{% block content %}
 {% load static %}
+{% block content %}
 
-            <!-- Header Start -->
-            <div class="container-fluid bg-breadcrumb">
-                <div class="container text-center py-5" style="max-width: 900px;">
-                    <h4 class="text-white display-4 mb-4 wow">Our Blog</h4>
-                    <ol class="breadcrumb d-flex justify-content-center mb-0 wow">
-                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                        <li class="breadcrumb-item active text-primary">Blog</li>
-                    </ol>    
+<!-- Header Start -->
+<div class="container-fluid bg-breadcrumb">
+    <div class="container text-center py-5" style="max-width: 900px;">
+        <h4 class="text-white display-6 fw-bold mb-3 wow">Our Blog</h4>
+        <ol class="breadcrumb justify-content-center mb-0 small wow">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Pages</a></li>
+            <li class="breadcrumb-item active text-primary">Blog</li>
+        </ol>    
+    </div>
+</div>
+<!-- Header End -->
+
+<!-- Blog Start -->
+<div class="container-fluid blog py-5">
+    <div class="container py-4">
+        <div class="text-center mx-auto pb-4 wow fadeInUp" style="max-width: 800px;">
+            <h4 class="text-primary">Our Blog & News</h4>
+            <h1 class="display-6 mb-3">Insights on Project Development & Training</h1>
+            <p class="mb-0 small text-muted">
+                Stay updated with articles, guides, and tips on project planning, management, and professional development from our expert team at Development Project Planning Solution Limited.
+            </p>
+        </div>
+
+        {% if blog_posts %}
+            {% if blog_posts.count == 1 %}
+            <!-- Single Post Full Width -->
+            {% for post in blog_posts %}
+            <div class="blog-item p-3">
+                <div class="blog-img mb-3 position-relative">
+                    <img src="{{ post.image }}" class="img-fluid rounded" alt="{{ post.title }}">
+                    <div class="blog-title position-absolute top-2 start-2">
+                        <a href="{% url 'blog_detail' post.pk %}" class="btn btn-sm btn-primary">{{ post.category }}</a>
+                    </div>
+                </div>
+                <a href="{% url 'blog_detail' post.pk %}" class="h5 d-inline-block mb-2">{{ post.title }}</a>
+                <p class="small text-muted mb-3">{{ post.summary|truncatewords:15 }}</p>
+                <div class="d-flex align-items-center">
+                    <img src="{% static 'img/admin-avatar.jpg' %}" class="img-fluid rounded-circle" style="width: 50px; height: 50px;" alt="Admin">
+                    <div class="ms-2">
+                        <h6 class="mb-0">{{ post.author }}</h6>
+                        <p class="mb-0 small">{{ post.created_at|date:"F j, Y" }}</p>
+                    </div>
                 </div>
             </div>
-            <!-- Header End -->
-        </div>
-        <!-- Navbar & Hero End -->
-  <br>
-            <!-- Blog Start -->
-    <div class="container-fluid blog pb-5">
-        <div class="container pb-5">
-            <div class="text-center mx-auto pb-5 wow" style="max-width: 800px;">
-                <h4 class="text-primary">Our Blog & News</h4>
-                <h1 class="display-5 mb-4">Insights on Project Development & Training</h1>
-                <p class="mb-0">Stay updated with articles, guides, and tips on project planning, management, and professional development from our expert team at Development Project Planning Solution Limited.</p>
-            </div>
+            {% endfor %}
+            {% else %}
+            <!-- Multiple Posts Carousel -->
             <div class="owl-carousel blog-carousel wow">
                 {% for post in blog_posts %}
-                <div class="blog-item p-4">
-                    <div class="blog-img mb-4">
-                        <img src="{{ post.image }}" class="img-fluid w-100 rounded" alt="{{ post.title }}">
-                        <div class="blog-title">
-                            <a href="{% url 'blog_detail' post.pk %}" class="btn">{{ post.category }}</a>
+                <div class="blog-item p-3">
+                    <div class="blog-img mb-3 position-relative">
+                        <img src="{{ post.image }}" class="img-fluid rounded blog-image" alt="{{ post.title }}">
+                        <div class="blog-title position-absolute top-2 start-2">
+                            <a href="{% url 'blog_detail' post.pk %}" class="btn btn-sm btn-primary">{{ post.category }}</a>
                         </div>
                     </div>
-                    <a href="{% url 'blog_detail' post.pk %}" class="h4 d-inline-block mb-3">{{ post.title }}</a>
-                    <p class="mb-4">{{ post.summary|truncatewords:15 }}</p>
+                    <a href="{% url 'blog_detail' post.pk %}" class="h5 d-inline-block mb-2">{{ post.title }}</a>
+                    <p class="small text-muted mb-3">{{ post.summary|truncatewords:15 }}</p>
                     <div class="d-flex align-items-center">
-                        <img src="{% static 'img/admin-avatar.jpg' %}" class="img-fluid rounded-circle" style="width: 60px; height: 60px;" alt="Admin">
-                        <div class="ms-3">
-                            <h5>{{ post.author }}</h5>
-                            <p class="mb-0">{{ post.created_at|date:"F j, Y" }}</p>
+                        <img src="{% static 'img/admin-avatar.jpg' %}" class="img-fluid rounded-circle" style="width: 50px; height: 50px;" alt="Admin">
+                        <div class="ms-2">
+                            <h6 class="mb-0">{{ post.author }}</h6>
+                            <p class="mb-0 small">{{ post.created_at|date:"F j, Y" }}</p>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
             </div>
-        </div>
+            {% endif %}
+        {% else %}
+            <p class="text-center small text-muted">No blog posts available at the moment.</p>
+        {% endif %}
+
     </div>
-    <!-- Blog End -->
+</div>
+<!-- Blog End -->
+
+<!-- Mobile & Desktop Styling -->
+<style>
+
+
+
+
+.blog-img {
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-img img {
+    width: 100%;
+    height: auto;       /* full image visible */
+    object-fit: contain; /* shows full image without cut */
+    display: block;
+    pointer-events: auto; /* allows clicking */
+}
+
+/* REMOVE hover effect completely */
+.blog-item:hover img {
+    transform: none !important;
+}
+.blog-item:hover {
+    box-shadow: none !important;
+    cursor: default;
+}
+
+
+.blog-img .blog-title a {
+    text-decoration: none;
+}
+
+.blog-item:hover img {
+    transform: none; /* disable hover scale */
+}
+
+@media (max-width: 992px) {
+    .blog-img img { max-height: 250px; }
+}
+
+@media (max-width: 768px) {
+    h1.display-6 { font-size: 1.7rem; line-height: 1.3; }
+    h4.text-primary { font-size: 1.1rem; }
+    p.small, p.text-muted { font-size: 0.9rem; }
+    .blog-item { padding: 1rem; }
+    .blog-img img { max-height: 250px; }
+    .blog-title .btn { font-size: 0.75rem; padding: 0.25rem 0.5rem; }
+}
+
+@media (max-width: 576px) {
+    .display-6 { font-size: 1.5rem; }
+    .p-3 { padding: 0.75rem !important; }
+    .blog-img img { max-height: 180px; }
+}
+</style>
+
+<!-- Owl Carousel JS -->
+<script>
+$(document).ready(function(){
+    $('.blog-carousel').owlCarousel({
+        loop: false,   // carousel haizunguki
+        margin: 20,
+        nav: true,
+        dots: true,
+        autoplay: false, // fixed, does not auto-play
+        responsive:{
+            0:{items:1},
+            768:{items:2},
+            992:{items:3}
+        }
+    });
+});
+</script>
 
 {% endblock %}

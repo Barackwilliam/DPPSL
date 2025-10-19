@@ -3,23 +3,74 @@
 
 {% block content %}
 <br><br>
+
 <div class="container-fluid py-5">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h4 class="text-primary text-uppercase fw-bold mb-4">{{ post.category }}</h4>
-                <h1 class="display-5 mb-4">{{ post.title }}</h1>
-                <div class="mb-4">
-                    <img src="{{ post.image }}" class="img-fluid w-100 rounded" alt="{{ post.title }}">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-12 col-12">
+                
+                <!-- Category -->
+                <h4 class="text-primary text-uppercase fw-bold mb-3">{{ post.category }}</h4>
+
+                <!-- Title -->
+                <h1 class="display-5 fw-bold mb-4">{{ post.title }}</h1>
+
+                <!-- Image -->
+                <div class="mb-4 shadow-sm rounded overflow-hidden">
+                    <img src="{{ post.image }}" class="img-fluid w-100" alt="{{ post.title }}" style="object-fit: contain;">
                 </div>
-                <p class="fs-5">{{ post.content|linebreaks }}</p>
-                <div class="mt-4 d-flex align-items-center">
-                    <h5 class="me-3">Author: {{ post.author }}</h5>
-                    <p class="mb-0">Published on: {{ post.created_at }}</p>
+
+                <!-- Content -->
+                <div class="mb-5 fs-5" style="line-height: 1.8;">
+                    {{ post.content|linebreaks }}
                 </div>
-                <a class="btn btn-primary rounded-pill py-2 px-4 mt-4" href="{% url 'home' %}">Back to Home</a>
+
+                <!-- Author & Date -->
+                <div class="mb-4 d-flex flex-wrap align-items-center gap-3">
+                    <div class="d-flex align-items-center">
+                        <img src="{% static 'img/admin-avatar.jpg' %}" class="rounded-circle me-2" style="width:50px; height:50px; object-fit:cover;" alt="{{ post.author }}">
+                        <div>
+                            <h6 class="mb-0">{{ post.author }}</h6>
+                            <small class="text-muted">Published on: {{ post.created_at|date:"F j, Y" }}</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Back Button -->
+                <a class="btn btn-primary rounded-pill py-2 px-4 mt-3" href="{% url 'home' %}">Back to Home</a>
+
             </div>
         </div>
     </div>
 </div>
+
+<!-- Responsive Styling -->
+<style>
+/* Text and spacing adjustments */
+h1.display-5 {
+    font-weight: 700;
+}
+.fs-5 {
+    font-size: 1.05rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    h1.display-5 { font-size: 2rem; }
+    .fs-5 { font-size: 1rem; line-height: 1.7; }
+}
+
+@media (max-width: 768px) {
+    h1.display-5 { font-size: 1.8rem; }
+    h4.text-primary { font-size: 1rem; }
+    .fs-5 { font-size: 0.95rem; line-height: 1.6; }
+}
+
+@media (max-width: 576px) {
+    h1.display-5 { font-size: 1.6rem; }
+    h4.text-primary { font-size: 0.95rem; }
+    .fs-5 { font-size: 0.9rem; line-height: 1.5; }
+}
+</style>
+
 {% endblock %}

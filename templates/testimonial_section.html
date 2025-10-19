@@ -1,101 +1,97 @@
-       <!-- templates/testimonial_section.html (updated for modern, interactive, mobile-responsive design with wow effects) -->
-<div class="container-fluid testimonial py-5" style="background: linear-gradient(to bottom, #f8f9fa, #e3f2fd);">
+{% load static %}
+
+<!-- Testimonial Section -->
+<div class="container-fluid testimonial py-5">
     <div class="container py-5">
         <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
-            <h4 class="text-primary mb-3 animate__animated animate__pulse animate__infinite"><i class="fas fa-star icon-wow me-2"></i> Testimonials</h4>
-            <h1 class="display-4 mb-4 text-dark wow zoomIn" data-wow-delay="0.3s">What Our Clients Say</h1>
-            <p class="mb-0 lead text-muted wow fadeIn" data-wow-delay="0.5s">
- Hear from professionals and organizations who have benefited from our project development and training services.            </p>
+            <h4 class="text-primary mb-3"><i class="fas fa-star me-2"></i>Testimonials</h4>
+            <h1 class="display-4 mb-4 text-dark">What Our Clients Say</h1>
+            <p class="mb-0 lead text-muted">
+                Hear from professionals and organizations who have transformed their projects with our development and training services.
+            </p>
         </div>
 
-        <!-- Submit Testimonial Button with wow hover effect -->
-        <div class="text-center mb-5 wow bounceIn" data-wow-delay="0.7s">
-            <button type="button" class="btn btn-gradient btn-lg px-5 py-3 shadow-lg animate__animated animate__tada animate__delay-1s" data-bs-toggle="modal" data-bs-target="#submitTestimonialModal">
-                <i class="fas fa-star icon-wow me-2 animate__animated animate__swing animate__infinite"></i>  Click to Share Your Experience
+        <!-- Submit Testimonial Button -->
+        <div class="text-center mb-5 wow bounceIn" data-wow-delay="0.3s">
+            <button type="button" class="btn btn-gradient btn-lg px-4 py-2" data-bs-toggle="modal" data-bs-target="#submitTestimonialModal">
+                <i class="fas fa-star me-2"></i>Share Your Experience
             </button>
         </div>
 
-        <!-- Testimonial Carousel - Interactive with auto-play, navigation, and touch support for mobile -->
-        <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.9s">
+        <!-- Testimonial Carousel -->
+        <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.5s">
             {% for t in testimonials %}
-                <div class="testimonial-item bg-white shadow-xl rounded-4 p-4 mx-3 animate__animated animate__fadeInLeft" data-wow-delay="{{ forloop.counter0|add:1 }}s">
+                <div class="testimonial-item bg-white shadow-lg rounded-4 p-4 mx-2">
                     <div class="testimonial-quote-left text-primary mb-3">
-                        <i class="fas fa-quote-left fa-2x animate__animated animate__bounceIn"></i>
+                        <i class="fas fa-quote-left fa-2x"></i>
                     </div>
-                    
                     <div class="testimonial-img text-center mb-3">
-                        <img src="{{ t.get_image_url }}" class="img-fluid rounded-circle border border-primary shadow-sm animate__animated animate__rotateIn" alt="{{ t.Full_name }}" style="width: 120px; height: 120px; object-fit: cover; border-width: 3px !important;">
+                        <img src="{{ t.get_image_url }}" class="img-fluid rounded-circle border border-primary shadow-sm" alt="{{ t.Full_name }}" style="width: 100px; height: 100px; object-fit: cover; border-width: 2px;">
                     </div>
-
                     <div class="testimonial-text text-center mb-3">
-                        <p class="mb-0 font-italic">{{ t.comment }}</p>
+                        <p class="mb-0">{{ t.comment }}</p>
                     </div>
-
                     <div class="testimonial-title text-center">
                         <h6 class="mb-1 text-dark">{{ t.Full_name }}</h6>
                         <p class="mb-2 text-muted small">{{ t.profession }}</p>
                         <div class="d-flex justify-content-center text-warning">
-                            <i class="fas fa-star animate__animated animate__heartBeat animate__infinite"></i>
-                            <i class="fas fa-star animate__animated animate__heartBeat animate__infinite" style="animation-delay: 0.2s;"></i>
-                            <i class="fas fa-star animate__animated animate__heartBeat animate__infinite" style="animation-delay: 0.4s;"></i>
-                            <i class="fas fa-star animate__animated animate__heartBeat animate__infinite" style="animation-delay: 0.6s;"></i>
-                            <i class="fas fa-star animate__animated animate__heartBeat animate__infinite" style="animation-delay: 0.8s;"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
                         </div>
                     </div>
-
                     <div class="testimonial-quote-right text-primary mt-3">
-                        <i class="fas fa-quote-right fa-2x animate__animated animate__bounceIn"></i>
+                        <i class="fas fa-quote-right fa-2x"></i>
                     </div>
                 </div>
             {% empty %}
-                <p class="text-center text-muted lead animate__animated animate__fadeIn">No testimonials yet. Be the first to share your feedback.</p>
+                <p class="text-center text-muted lead">No testimonials yet. Be the first to share your feedback.</p>
             {% endfor %}
         </div>
     </div>
 </div>
 
-<!-- Submit Testimonial Modal - Modern with smooth animations -->
+<!-- Submit Testimonial Modal -->
 <div class="modal fade" id="submitTestimonialModal" tabindex="-1" aria-labelledby="submitTestimonialModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content rounded-4 shadow-lg overflow-hidden animate__animated animate__zoomIn" style="background: linear-gradient(135deg, #0783f7 0%, #0400ff 100%);">
-            <div class="modal-header border-0 pb-0">
-                <h5 style="text-align: center;" class="modal-title text-white fw-bold" id="submitTestimonialModalLabel"><i class="fas fa-star icon-wow me-2 animate__animated animate__rubberBand"></i>Share Your Experience</h5>
+        <div class="modal-content rounded-4 shadow-lg overflow-hidden">
+            <div class="modal-header border-0 pb-0 bg-primary text-white">
+                <h5 class="modal-title fw-bold w-100 text-center" id="submitTestimonialModalLabel"><i class="fas fa-star me-2"></i>Share Your Experience</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body p-5 bg-white rounded-bottom-4">
-                <p class="text-center text-muted mb-4 lead animate__animated animate__fadeInDown">
-Tell us about your experience with Development Project Planning Solution Limited. Your feedback helps us improve and inspire others                </p>
-
-                <!-- Form with ID for AJAX -->
+            <div class="modal-body p-4">
+                <p class="text-center text-muted mb-4 lead">
+                    Tell us about your experience with Development Project Planning Solution Limited. Your feedback inspires others!
+                </p>
                 <form id="testimonialForm" method="post" novalidate>
                     {% csrf_token %}
-
-                    <div class="row g-4 mb-4">
-                        <div class="col-md-6 animate__animated animate__fadeInLeft" data-wow-delay="0.1s">
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
                             {{ form.Full_name.label_tag }}
                             {{ form.Full_name }}
                             <div class="error text-danger small mt-1" id="Full_name_error"></div>
                         </div>
-                        <div class="col-md-6 animate__animated animate__fadeInRight" data-wow-delay="0.1s">
+                        <div class="col-md-6">
                             {{ form.profession.label_tag }}
                             {{ form.profession }}
                             <div class="error text-danger small mt-1" id="profession_error"></div>
                         </div>
-                        <div class="col-12 animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                        <div class="col-12">
                             {{ form.image.label_tag }}
                             {{ form.image }}
                             <div class="error text-danger small mt-1" id="image_error"></div>
                         </div>
-                        <div class="col-12 animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                        <div class="col-12">
                             {{ form.comment.label_tag }}
                             {{ form.comment }}
                             <div class="error text-danger small mt-1" id="comment_error"></div>
                         </div>
                     </div>
-
                     <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-gradient btn-lg px-5 py-3 shadow-lg animate__animated animate__pulse animate__infinite">
-                            <i class="fas fa-paper-plane me-2 animate__animated animate__swing"></i> Submit Now
+                        <button type="submit" class="btn btn-gradient btn-lg px-4 py-2">
+                            <i class="fas fa-paper-plane me-2"></i>Submit Now
                         </button>
                     </div>
                 </form>
@@ -104,17 +100,17 @@ Tell us about your experience with Development Project Planning Solution Limited
     </div>
 </div>
 
-<!-- Success Modal Popup - With wow animation -->
+<!-- Success Modal -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content animate__animated animate__bounceIn">
+        <div class="modal-content rounded-4">
             <div class="modal-header bg-success text-white">
-                <h5 class="modal-title" id="successModalLabel"><i class="fas fa-check-circle me-2 animate__animated animate__tada"></i> Success!</h5>
+                <h5 class="modal-title" id="successModalLabel"><i class="fas fa-check-circle me-2"></i>Success!</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
                 <p id="successMessage" class="lead"></p>
-                <i class="fas fa-trophy fa-3x text-warning animate__animated animate__heartBeat animate__infinite"></i>
+                <i class="fas fa-trophy fa-3x text-warning"></i>
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -123,122 +119,199 @@ Tell us about your experience with Development Project Planning Solution Limited
     </div>
 </div>
 
-<!-- JavaScript for AJAX Submission (same as before, but with enhanced feedback) -->
-<script>
-    document.getElementById('testimonialForm').addEventListener('submit', function(event) {
-        event.preventDefault();  // Prevent page reload
-
-        // Clear previous errors with animation
-        document.querySelectorAll('.error').forEach(el => {
-            el.innerHTML = '';
-            el.classList.remove('animate__animated', 'animate__shakeX');
-        });
-
-        const formData = new FormData(this);
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', '{% url "submit_testimonial" %}', true);
-        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-                const response = JSON.parse(xhr.responseText);
-                if (response.status === 'success') {
-                    // Close form modal and show success with wow
-                    bootstrap.Modal.getInstance(document.getElementById('submitTestimonialModal')).hide();
-                    document.getElementById('successMessage').innerText = response.message;
-                    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-                    successModal.show();
-                    // Optional: Add confetti or more wow effects (requires extra JS library)
-                } else {
-                    // Show errors with shake animation
-                    const errors = JSON.parse(response.errors);
-                    for (let field in errors) {
-                        const errorEl = document.getElementById(field + '_error');
-                        errorEl.innerHTML = errors[field][0].message;
-                        errorEl.classList.add('animate__animated', 'animate__shakeX');
-                    }
-                }
-            }
-        };
-
-        xhr.send(formData);
-    });
-</script>
-
-<!-- Custom Styles - Enhanced for modern look and responsiveness -->
+<!-- Custom Styles -->
 <style>
+    :root {
+        --primary: #1a73e8;
+        --secondary: #f8f9fa;
+        --text-dark: #212529;
+        --text-light: #ffffff;
+    }
+
+    .testimonial {
+        background: linear-gradient(to bottom, var(--secondary), #e3f2fd);
+        padding: 40px 0;
+    }
+
+    .testimonial h1 {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        font-weight: 700;
+    }
+
+    .testimonial p.lead {
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+        max-width: 90%;
+        margin: 0 auto;
+    }
+
+    .btn-gradient {
+        background: linear-gradient(45deg, var(--primary), #4c8bf5);
+        color: var(--text-light);
+        border: none;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        font-size: clamp(0.9rem, 2vw, 1rem);
+        padding: clamp(8px, 2vw, 10px) clamp(16px, 3vw, 20px);
+    }
+
+    .btn-gradient:hover {
+        background: linear-gradient(45deg, #1557b0, var(--primary));
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
     .testimonial-item {
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        cursor: pointer;
+        border-radius: 12px;
+        padding: 20px;
+        margin: 10px;
     }
+
     .testimonial-item:hover {
-        transform: translateY(-10px) scale(1.05);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15) !important;
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     }
-    .btn-gradient {
-        background: linear-gradient(45deg, #1e3c72, #00bfff);
-        color: #fff;
-        border: none;
-        border-radius: 50px;
-        transition: all 0.4s ease;
+
+    .testimonial-img img {
+        width: clamp(80px, 15vw, 100px);
+        height: clamp(80px, 15vw, 100px);
     }
-    .btn-gradient:hover {
-        background: linear-gradient(45deg, #00bfff, #1e3c72);
-        transform: translateY(-5px) scale(1.1);
-        box-shadow: 0 10px 20px rgba(0, 191, 255, 0.5);
-    }
+
     .form-control {
-        border: 2px solid #e0f7ff;
-        border-radius: 15px;
-        transition: all 0.3s ease;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: clamp(0.85rem, 2vw, 0.95rem);
+        transition: border-color 0.3s ease;
     }
+
     .form-control:focus {
-        border-color: #00bfff;
-        box-shadow: 0 0 15px rgba(0, 191, 255, 0.4);
+        border-color: var(--primary);
+        box-shadow: 0 0 8px rgba(26, 115, 232, 0.3);
     }
-    .icon-wow {
-        animation: iconPulse 1.5s infinite;
+
+    .modal-content {
+        border: none;
+        border-radius: 12px;
     }
-    @keyframes iconPulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.2); }
-        100% { transform: scale(1); }
+
+    .modal-header.bg-primary {
+        background: var(--primary);
     }
-    /* Mobile Responsiveness */
+
+    .owl-carousel .owl-nav button {
+        font-size: clamp(1.2rem, 3vw, 1.5rem);
+        padding: 8px;
+        color: var(--primary);
+    }
+
+    .owl-carousel .owl-dots .owl-dot.active span {
+        background: var(--primary);
+    }
+
     @media (max-width: 768px) {
-        .testimonial-carousel .owl-item {
-            margin: 0 auto;
-            max-width: 90%;
+        .testimonial {
+            padding: 30px 0;
         }
+
+        .testimonial-carousel .owl-item {
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        .testimonial-item {
+            padding: 15px;
+            margin: 5px;
+        }
+
         .modal-dialog {
             max-width: 95%;
+            margin: 10px auto;
         }
-        h1.display-5 {
-            font-size: 2.5rem;
+
+        .modal-body {
+            padding: 15px;
         }
-        .btn-lg {
-            font-size: 1rem;
-            px-4 py-2;
+
+        .btn-gradient {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        .testimonial-img img {
+            width: 80px;
+            height: 80px;
+        }
+
+        .form-control {
+            font-size: 0.85rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .testimonial h1 {
+            font-size: 1.8rem;
+        }
+
+        .testimonial p.lead {
+            font-size: 0.9rem;
+        }
+
+        .testimonial-item {
+            padding: 12px;
+        }
+
+        .owl-carousel .owl-nav {
+            display: none;
         }
     }
 </style>
 
-<!-- Owl Carousel Config - Enhanced for interactivity and mobile swipe -->
+<!-- Owl Carousel Config -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <script>
     $('.testimonial-carousel').owlCarousel({
         loop: true,
-        margin: 20,
+        margin: 15,
         nav: true,
         dots: true,
         autoplay: true,
-        autoplayTimeout: 5000,
+        autoplayTimeout: 4000,
         autoplayHoverPause: true,
+        touchDrag: true,
+        mouseDrag: true,
         responsive: {
             0: { items: 1 },
             600: { items: 2 },
             1000: { items: 3 }
         },
-        navText: ['<i class="fas fa-chevron-left fa-2x text-primary"></i>', '<i class="fas fa-chevron-right fa-2x text-primary"></i>']
+        navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>']
+    });
+</script>
+
+<!-- AJAX Submission Script -->
+<script>
+    document.getElementById('testimonialForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        document.querySelectorAll('.error').forEach(el => el.innerHTML = '');
+        const formData = new FormData(this);
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '{% url "submit_testimonial" %}', true);
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+                if (response.status === 'success') {
+                    bootstrap.Modal.getInstance(document.getElementById('submitTestimonialModal')).hide();
+                    document.getElementById('successMessage').innerText = response.message;
+                    new bootstrap.Modal(document.getElementById('successModal')).show();
+                } else {
+                    const errors = JSON.parse(response.errors);
+                    for (let field in errors) {
+                        document.getElementById(field + '_error').innerHTML = errors[field][0].message;
+                    }
+                }
+            }
+        };
+        xhr.send(formData);
     });
 </script>

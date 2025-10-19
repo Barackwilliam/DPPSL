@@ -2,68 +2,128 @@
 {% block content %}
 {% load static %}
 
-         
-         <!-- Header Start -->
-            <div class="container-fluid bg-breadcrumb">
-                <div class="container text-center py-5" style="max-width: 900px;">
-                    <h4 class="text-white display-4 mb-4 wow">FAQs</h4>
-                    <ol class="breadcrumb d-flex justify-content-center mb-0 wow">
-                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                        <li class="breadcrumb-item active text-primary">FAQ</li>
-                    </ol>    
-                </div>
-            </div>
-            <!-- Header End -->
+<!-- Header Start -->
+<div class="container-fluid bg-breadcrumb">
+    <div class="container text-center py-5" style="max-width: 900px;">
+        <h4 class="text-white display-4 mb-4 wow">FAQs</h4>
+        <ol class="breadcrumb d-flex justify-content-center mb-0 wow">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Pages</a></li>
+            <li class="breadcrumb-item active text-primary">FAQ</li>
+        </ol>    
+    </div>
+</div>
+<!-- Header End -->
+
+<br>
+
+<!-- FAQs Start -->
+<div class="container-fluid faq-section pb-5">
+    <div class="container pb-5 overflow-hidden">
+        <div class="text-center mx-auto pb-5 wow" style="max-width: 800px;">
+            <h4 class="text-primary">FAQs</h4>
+            <h1 class="display-5 mb-4">Frequently Asked Questions</h1>
+            <p class="mb-0">Here are some common questions about our project development, training, and consultancy services at Development Project Planning Solution Limited.</p>
         </div>
-        <!-- Navbar & Hero End -->
-
-  <br>
-
-    <!-- FAQs Start -->
-    <div class="container-fluid faq-section pb-5">
-        <div class="container pb-5 overflow-hidden">
-            <div class="text-center mx-auto pb-5 wow" style="max-width: 800px;">
-                <h4 class="text-primary">FAQs</h4>
-                <h1 class="display-5 mb-4">Frequently Asked Questions</h1>
-                <p class="mb-0">Here are some common questions about our project development, training, and consultancy services at Development Project Planning Solution Limited.</p>
-            </div>
-            <div class="row g-5 align-items-center">
-                <div class="col-lg-6 wow">
-                    <div class="accordion accordion-flush bg-light rounded p-5" id="accordionFlushSection">
-                        {% for faq in faqs %}
-                        <div class="accordion-item {% if forloop.first %}rounded-top{% endif %} {% if forloop.last %}rounded-bottom{% endif %}">
-                            <h2 class="accordion-header" id="flush-heading{{ forloop.counter }}">
-                                <button class="accordion-button collapsed {% if forloop.first %}rounded-top{% endif %}" 
-                                        type="button" data-bs-toggle="collapse" 
-                                        data-bs-target="#flush-collapse{{ forloop.counter }}" 
-                                        aria-expanded="false" aria-controls="flush-collapse{{ forloop.counter }}">
-                                    {{ faq.question }}
-                                </button>
-                            </h2>
-                            <div id="flush-collapse{{ forloop.counter }}" 
-                                class="accordion-collapse collapse" 
-                                aria-labelledby="flush-heading{{ forloop.counter }}" 
-                                data-bs-parent="#accordionFlushSection">
-                                <div class="accordion-body">
-                                    {{ faq.answer }}
-                                </div>
+        <div class="row g-5 align-items-center">
+            <!-- Accordion Column -->
+            <div class="col-lg-6 wow">
+                <div class="accordion accordion-flush bg-light rounded p-4 p-lg-5" id="accordionFlushSection">
+                    {% for faq in faqs %}
+                    <div class="accordion-item {% if forloop.first %}rounded-top{% endif %} {% if forloop.last %}rounded-bottom{% endif %}">
+                        <h2 class="accordion-header" id="flush-heading{{ forloop.counter }}">
+                            <button class="accordion-button collapsed {% if forloop.first %}rounded-top{% endif %}" 
+                                    type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#flush-collapse{{ forloop.counter }}" 
+                                    aria-expanded="false" aria-controls="flush-collapse{{ forloop.counter }}">
+                                {{ faq.question }}
+                            </button>
+                        </h2>
+                        <div id="flush-collapse{{ forloop.counter }}" 
+                            class="accordion-collapse collapse" 
+                            aria-labelledby="flush-heading{{ forloop.counter }}" 
+                            data-bs-parent="#accordionFlushSection">
+                            <div class="accordion-body">
+                                {{ faq.answer }}
                             </div>
                         </div>
-                        {% empty %}
-                        <p>No FAQs have been added yet.</p>
-                        {% endfor %}
                     </div>
+                    {% empty %}
+                    <p>No FAQs have been added yet.</p>
+                    {% endfor %}
                 </div>
-                <div class="col-lg-6 wow fadeInRight">
-                    <div class="bg-primary rounded">
-                        <img src="{% static 'img/about-2.png' %}" class="img-fluid w-100" alt="FAQs">
-                    </div>
+            </div>
+
+            <!-- Image Column -->
+            <div class="col-lg-6 wow fadeInRight">
+                <div class="bg-primary rounded overflow-hidden">
+                    <img src="{% static 'img/about-2.png' %}" class="img-fluid w-100" alt="FAQs">
                 </div>
             </div>
         </div>
     </div>
-    <!-- FAQs End -->
+</div>
+<!-- FAQs End -->
 
+<!-- Mobile & Responsive Styling -->
+<style>
+/* General */
+.faq-section .accordion-button {
+    font-size: 1rem;
+    padding: 1rem 1.25rem;
+}
+
+.faq-section .accordion-body {
+    font-size: 0.95rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .faq-section .row {
+        flex-direction: column-reverse; /* image goes below accordion on tablet */
+    }
+    .faq-section .accordion-button {
+        font-size: 0.95rem;
+        padding: 0.8rem 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .faq-section h1.display-5 {
+        font-size: 1.8rem;
+    }
+    .faq-section h4.text-primary {
+        font-size: 1.1rem;
+    }
+    .faq-section p {
+        font-size: 0.9rem;
+    }
+    .faq-section .accordion-button {
+        font-size: 0.9rem;
+        padding: 0.7rem 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .faq-section h1.display-5 {
+        font-size: 1.6rem;
+    }
+    .faq-section .accordion-button {
+        font-size: 0.85rem;
+        padding: 0.6rem 0.8rem;
+    }
+    .faq-section p {
+        font-size: 0.85rem;
+    }
+}
+
+/* Make image responsive */
+.faq-section .bg-primary img {
+    object-fit: contain;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+</style>
 
 {% endblock %}

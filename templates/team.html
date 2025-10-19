@@ -18,51 +18,41 @@
         <!-- Navbar & Hero End -->
            <br>
 
-    <!-- Team Start -->
-        <div class="container-fluid team pb-5">
-            <div class="container pb-5">
-                <div class="text-center mx-auto pb-5 wow" style="max-width: 800px;">
-                    <h4 class="text-primary">Our Team</h4>
-                    <h1 class="display-5 mb-4">Meet Our Expert Advisers</h1>
-                    <p class="mb-0">At Development Project Planning Solution Limited, we believe that the success of every project depends on the people behind it. Our team is made up of experienced professionals, certified consultants, and creative thinkers who are passionate about delivering innovative and sustainable solutions. With diverse backgrounds in project management, business development, and capacity building, our advisers work closely with clients to provide guidance, mentorship, and strategic insights that drive lasting impact.
-                    </p>
-                </div>
-                    <div class="row g-4">
-                {% for member in team %}
-                <div class="col-md-6 col-lg-6 col-xl-3 wow">
-                    <div class="team-item">
-                        <div class="team-img">
-                            <img src="{{ member.image }}" class="img-fluid" alt="{{ member.Full_name }}">
-                        </div>
-                        <div class="team-title">
-                            <h4 class="mb-0">{{ member.Full_name }}</h4>
-                            <p class="mb-0">{{ member.designation }}</p>
-                        </div>
-                        <div class="team-icon">
+<!-- Team Start -->
+<div class="container-fluid team pb-5">
+    <div class="container pb-4">
+        <div class="text-center mx-auto pb-4 wow fadeInUp" style="max-width: 800px;">
+            <h4 class="text-primary">Our Team</h4>
+            <h1 class="display-6 mb-3">Meet Our Expert Advisers</h1>
+            <p class="small">Our team of experts brings experience, passion, and innovation to every project.</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            {% for member in team %}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp">
+                <div class="team-item shadow-sm rounded overflow-hidden">
+                    <div class="team-img">
+                        <img src="{{ member.image }}" class="img-fluid w-100" alt="{{ member.Full_name }}">
+                    </div>
+                    <div class="text-center py-3 bg-light">
+                        <h5 class="mb-1">{{ member.Full_name }}</h5>
+                        <p class="small text-muted mb-2">{{ member.designation }}</p>
+                        <div>
                             {% if member.facebook_link %}
-                                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="{{ member.facebook_link }}"><i class="fab fa-facebook-f"></i></a>
-                            {% else %}
-                                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="https://www.facebook.com"><i class="fab fa-facebook-f"></i></a>
+                                <a href="{{ member.facebook_link }}" class="btn btn-sm btn-primary rounded-circle me-2"><i class="fab fa-facebook-f"></i></a>
                             {% endif %}
                             {% if member.twitter_link %}
-                                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="{{ member.twitter_link }}"><i class="fab fa-twitter"></i></a>
-                            {% else %}
-                                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="https://www.x.com"><i class="fab fa-twitter"></i></a>
+                                <a href="{{ member.twitter_link }}" class="btn btn-sm btn-primary rounded-circle me-2"><i class="fab fa-twitter"></i></a>
                             {% endif %}
                             {% if member.instagram_link %}
-                                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="{{ member.instagram_link }}"><i class="fab fa-instagram"></i></a>
-                            {% else %}
-                                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="https://www.instagram.com"><i class="fab fa-instagram"></i></a>
+                                <a href="{{ member.instagram_link }}" class="btn btn-sm btn-primary rounded-circle"><i class="fab fa-instagram"></i></a>
                             {% endif %}
                         </div>
                     </div>
                 </div>
+            </div>
             {% endfor %}
         </div>
-
-
-            </div>
-        </div>
-        <!-- Team End -->
-
+    </div>
+</div>
+<!-- Team End -->
         {% endblock %}

@@ -1,90 +1,78 @@
 {% extends 'base.html' %}
-{% block content %}
 {% load static %}
+{% block content %}
 
+<!-- Header Start -->
+<div class="container-fluid bg-breadcrumb">
+    <div class="container text-center py-5" style="max-width: 900px;">
+        <h4 class="text-white display-6 fw-bold mb-3 wow">About Us</h4>
+        <ol class="breadcrumb justify-content-center mb-0 small">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Pages</a></li>
+            <li class="breadcrumb-item active text-primary">About</li>
+        </ol>
+    </div>
+</div>
+<!-- Header End -->
 
-            <!-- Header Start -->
-            <div class="container-fluid bg-breadcrumb">
-                <div class="container text-center py-5" style="max-width: 900px;">
-                    <h4 class="text-white display-4 mb-4 wow">About Us</h4>
-                    <ol class="breadcrumb d-flex justify-content-center mb-0">
-                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                        <li class="breadcrumb-item active text-primary">About</li>
-                    </ol>    
-                </div>
-            </div>
-            <!-- Header End -->
-        </div>
-        <!-- Navbar & Hero End -->
-
-       <!-- About Start -->
+<!-- About Start -->
 <div class="container-fluid about py-5">
-    <div class="container py-5">
+    <div class="container py-4">
         <div class="row g-5 align-items-center">
-            <div class="col-xl-7 wow">
-                <div>
-                    <h4 class="text-primary">About Us</h4>
-                    <h1 class="display-5 mb-4">Development Project Planning Solution Limited</h1>
-                    <p class="mb-4">
-                        Development Project Planning Solution Limited is a company based in Zanzibar, that specializes in Project Development and all project-related activities, including mapping and architectural drawings.
-                    </p>
-                    <p class="mb-4">
-                        Additionally, the company offers short-term training in various fields such as Management and Leadership, Customer Service, Project Proposal Writing, and Grant Project Proposal Writing. The company also handles all aspects of project development, including writing Business Plans, Strategic Plans, and Action Plans.
-                    </p>
-                    <div class="row g-4">
-                        <div class="col-md-6 col-lg-6 col-xl-6">
-                            <div class="d-flex">
-                                <div><i class="fas fa-map-marker-alt fa-3x text-primary"></i></div>
-                                <div class="ms-4">
-                                    <h4>Our Location</h4>
-                                    <p>Fuoni, Zanzibar - Tanzania</p>
-                                </div>
+            <div class="col-12 col-xl-7 wow fadeInUp" data-wow-delay="0.1s">
+                <h4 class="text-primary">About Us</h4>
+                <h1 class="display-6 mb-3">Development Project Planning Solution Limited</h1>
+                <p class="mb-3">
+                    Development Project Planning Solution Limited is a company based in Zanzibar, specializing in Project Development and all project-related activities, including mapping and architectural drawings.
+                </p>
+                <p class="mb-4">
+                    We also offer short-term training in Management, Leadership, Customer Service, Project Proposal Writing, and Grant Proposal Writing. Our services include Business Plans, Strategic Plans, and Action Plans.
+                </p>
+
+                <div class="row gy-4 gx-3">
+                    <div class="col-12 col-md-6">
+                        <div class="d-flex align-items-start">
+                            <i class="fas fa-map-marker-alt fa-2x text-primary me-3"></i>
+                            <div>
+                                <h5 class="fw-bold mb-1">Our Location</h5>
+                                <p class="mb-0 small">Fuoni, Zanzibar - Tanzania</p>
                             </div>
                         </div>
-                        <div class="col-md-6 col-lg-6 col-xl-6">
-                            <div class="d-flex">
-                                <div><i class="bi bi-bookmark-heart-fill fa-3x text-primary"></i></div>
-                                <div class="ms-4">
-                                    <h4>Our Services</h4>
-                                    <p>Project Planning, Consultancy, Training & Architectural Design</p>
-                                </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-bookmark-heart-fill fa-2x text-primary me-3"></i>
+                            <div>
+                                <h5 class="fw-bold mb-1">Our Services</h5>
+                                <p class="mb-0 small">Project Planning, Consultancy, Training & Design</p>
                             </div>
                         </div>
-                      
-                        <div class="col-sm-6">
-                            <div class="d-flex">
-                                <i class="fas fa-phone-alt fa-2x text-primary me-4"></i>
-                                <div>
-                                    <h4>Call Us</h4>
-                                    <p class="mb-0 fs-5" style="letter-spacing: 1px;">0719686864</p>
-                                    <p class="mb-0 fs-5" style="letter-spacing: 1px;">0772997018</p>
-                                </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="d-flex align-items-start">
+                            <i class="fas fa-phone-alt fa-2x text-primary me-3"></i>
+                            <div>
+                                <h5 class="fw-bold mb-1">Call Us</h5>
+                                <p class="mb-0 small">0719 686 864 | 0772 997 018</p>
                             </div>
-                            <div class="d-flex mt-3">
-                                <i class="fas fa-envelope fa-2x text-primary me-4"></i>
-                                <div>
-                                    <h4>Email</h4>
-                                    <p class="mb-0 fs-6">projectpsolution@gmail.com</p>
-                                </div>
+                        </div>
+                        <div class="d-flex align-items-start mt-3">
+                            <i class="fas fa-envelope fa-2x text-primary me-3"></i>
+                            <div>
+                                <h5 class="fw-bold mb-1">Email</h5>
+                                <p class="mb-0 small">projectpsolution@gmail.com</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-5 wow">
-                <div class="bg-primary rounded position-relative overflow-hidden">
-                    <img src="{% static 'img/about-2.png' %}" class="img-fluid rounded w-100" alt="">
-                    
-                    <div class="" style="position: absolute; top: -15px; right: -15px;">
-                        <img src="{% static 'img/about-3.png' %}" class="img-fluid" style="width: 150px; height: 150px; opacity: 0.7;" alt="">
-                    </div>
-                    <div class="" style="position: absolute; top: -20px; left: 10px; transform: rotate(90deg);">
-                        <img src="{% static 'img/about-4.png' %}" class="img-fluid" style="width: 100px; height: 150px; opacity: 0.9;" alt="">
-                    </div>
-                    <div class="rounded-bottom">
-                        <img src="{% static 'img/about-5.jpg' %}" class="img-fluid rounded-bottom w-100" alt="">
-                    </div>
+
+            <!-- Image Section -->
+            <div class="col-12 col-xl-5 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="bg-primary rounded position-relative overflow-hidden shadow-sm">
+                    <img src="{% static 'img/about-5.jpg' %}" class="img-fluid rounded w-100" alt=""> 
                 </div>
             </div>
         </div>
@@ -94,63 +82,40 @@
 
 <!-- Certificates Start -->
 <div class="container-fluid feature pb-5">
-    <div class="container pb-5">
-        <div class="text-center mx-auto pb-5 wow" style="max-width: 800px;">
+    <div class="container pb-4">
+        <div class="text-center mx-auto pb-4 wow fadeInUp" style="max-width: 800px;">
             <h4 class="text-primary">Our Certifications</h4>
-            <h1 class="display-5 mb-4">Trusted & Licensed to Serve You</h1>
-            <p class="mb-0">
+            <h1 class="display-6 mb-3">Trusted & Licensed to Serve You</h1>
+            <p class="mb-0 small">
                 We are officially registered and licensed with the relevant authorities in Tanzania and Zanzibar.  
-                These certifications highlight our compliance, transparency, and commitment to providing reliable services 
-                for individuals, businesses, and institutions.
+                These certifications show our compliance and commitment to professionalism.
             </p>
         </div>
         <div class="row g-4">
-            <!-- Certificate 1 -->
-            <div class="col-md-6 col-lg-6 col-xl-4 wow">
-                <div class="feature-item p-4 text-center">
-                    <div class="feature-icon p-4 mb-4">
-                        <i class="fas fa-file-alt fa-4x text-primary"></i>
-                    </div>
-                    <h4>Zanzibar Revenue Authority</h4>
-                    <p class="mb-4">
-                        Registered with the <strong>Zanzibar Revenue Authority</strong>  
-                        (TRN: Z052509532, VRN: 07103136X) confirming our compliance with VAT and tax regulations.  
-                        This certificate ensures that our operations are fully recognized and transparent.
-                    </p>
-                    <img src="{% static 'img/tax.jpeg' %}" alt="ZRA Certificate" class="img-fluid rounded shadow">
+            <div class="col-12 col-md-6 col-lg-4 wow fadeInUp">
+                <div class="feature-item p-4 text-center shadow-sm rounded h-100">
+                    <div class="feature-icon mb-3"><i class="fas fa-file-alt fa-3x text-primary"></i></div>
+                    <h5 class="fw-bold mb-2">Zanzibar Revenue Authority</h5>
+                    <p class="small">Registered with ZRA (TRN: Z052509532, VRN: 07103136X).</p>
+                    <img src="{% static 'img/tax.jpeg' %}" class="img-fluid rounded shadow-sm" alt="">
                 </div>
             </div>
 
-            <!-- Certificate 2 -->
-            <div class="col-md-6 col-lg-6 col-xl-4 wow">
-                <div class="feature-item p-4 text-center">
-                    <div class="feature-icon p-4 mb-4">
-                        <i class="fas fa-briefcase fa-4x text-primary"></i>
-                    </div>
-                    <h4>Business License</h4>
-                    <p class="mb-4">
-                        Licensed by <strong>West "B" Municipal Council</strong> under Act 14, 2017.  
-                        This official business license authorizes us to operate as a consultancy firm, 
-                        further proving our legitimacy and dedication to quality service delivery.
-                    </p>
-                    <img src="{% static 'img/license.jpeg' %}" alt="Business License" class="img-fluid rounded shadow">
+            <div class="col-12 col-md-6 col-lg-4 wow fadeInUp">
+                <div class="feature-item p-4 text-center shadow-sm rounded h-100">
+                    <div class="feature-icon mb-3"><i class="fas fa-briefcase fa-3x text-primary"></i></div>
+                    <h5 class="fw-bold mb-2">Business License</h5>
+                    <p class="small">Licensed by West "B" Municipal Council under Act 14, 2017.</p>
+                    <img src="{% static 'img/license.jpeg' %}" class="img-fluid rounded shadow-sm" alt="">
                 </div>
             </div>
 
-            <!-- Certificate 3 -->
-            <div class="col-md-6 col-lg-6 col-xl-4 wow">
-                <div class="feature-item p-4 text-center">
-                    <div class="feature-icon p-4 mb-4">
-                        <i class="fas fa-certificate fa-4x text-primary"></i>
-                    </div>
-                    <h4>Tanzania Revenue Authority</h4>
-                    <p class="mb-4">
-                        Registered with the <strong>Tanzania Revenue Authority (TRA)</strong>,  
-                        assigned Taxpayer Identification Number (TIN: 189-201-788).  
-                        This certificate shows our compliance with national tax laws, 
-                        ensuring accountability and professionalism in every project we handle.
-                    </p>
-                    <img src="{% static 'img/tin.jpeg' %}" alt="TRA Certificate" class="img-fluid rounded shadow">
+            <div class="col-12 col-md-6 col-lg-4 wow fadeInUp">
+                <div class="feature-item p-4 text-center shadow-sm rounded h-100">
+                    <div class="feature-icon mb-3"><i class="fas fa-certificate fa-3x text-primary"></i></div>
+                    <h5 class="fw-bold mb-2">Tanzania Revenue Authority</h5>
+                    <p class="small">Registered with TRA (TIN: 189-201-788).</p>
+                    <img src="{% static 'img/tin.jpeg' %}" class="img-fluid rounded shadow-sm" alt="">
                 </div>
             </div>
         </div>
@@ -158,53 +123,53 @@
 </div>
 <!-- Certificates End -->
 
-        <!-- Team Start -->
-        <div class="container-fluid team pb-5">
-            <div class="container pb-5">
-                <div class="text-center mx-auto pb-5 wow" style="max-width: 800px;">
-                   <h4 class="text-primary">Our Team</h4>
-                    <h1 class="display-5 mb-4">Meet Our Expert Advisers</h1>
-                    <p class="mb-0">
-                    At Development Project Planning Solution Limited, we believe that the success of every project depends on the people behind it. 
-                    Our team is made up of experienced professionals, certified consultants, and creative thinkers who are passionate about delivering 
-                    innovative and sustainable solutions. With diverse backgrounds in project management, business development, and capacity building, 
-                    our advisers work closely with clients to provide guidance, mentorship, and strategic insights that drive lasting impact.
-                    </p>
-
-                </div>
-                    <div class="row g-4">
-                        {% for member in team %}
-                        <div class="col-md-6 col-lg-6 col-xl-3 wow">
-                            <div class="team-item">
-                                <div class="team-img">
-                                    <img src="{{ member.image }}" class="img-fluid" alt="{{ member.Full_name }}">
-                                </div>
-                                <div class="team-title">
-                                    <h4 class="mb-0">{{ member.Full_name }}</h4>
-                                    <p class="mb-0">{{ member.designation }}</p>
-                                </div>
-                                <div class="team-icon">
+<!-- Team Start -->
+<div class="container-fluid team pb-5">
+    <div class="container pb-4">
+        <div class="text-center mx-auto pb-4 wow fadeInUp" style="max-width: 800px;">
+            <h4 class="text-primary">Our Team</h4>
+            <h1 class="display-6 mb-3">Meet Our Expert Advisers</h1>
+            <p class="small">Our team of experts brings experience, passion, and innovation to every project.</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            {% for member in team %}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp">
+                <div class="team-item shadow-sm rounded overflow-hidden">
+                    <div class="team-img">
+                        <img src="{{ member.image }}" class="img-fluid w-100" alt="{{ member.Full_name }}">
+                    </div>
+                    <div class="text-center py-3 bg-light">
+                        <h5 class="mb-1">{{ member.Full_name }}</h5>
+                        <p class="small text-muted mb-2">{{ member.designation }}</p>
+                        <div>
                             {% if member.facebook_link %}
-                                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="{{ member.facebook_link }}"><i class="fab fa-facebook-f"></i></a>
-                            {% else %}
-                                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="https://www.facebook.com"><i class="fab fa-facebook-f"></i></a>
+                                <a href="{{ member.facebook_link }}" class="btn btn-sm btn-primary rounded-circle me-2"><i class="fab fa-facebook-f"></i></a>
                             {% endif %}
                             {% if member.twitter_link %}
-                                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="{{ member.twitter_link }}"><i class="fab fa-twitter"></i></a>
-                            {% else %}
-                                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="https://www.x.com"><i class="fab fa-twitter"></i></a>
+                                <a href="{{ member.twitter_link }}" class="btn btn-sm btn-primary rounded-circle me-2"><i class="fab fa-twitter"></i></a>
                             {% endif %}
                             {% if member.instagram_link %}
-                                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="{{ member.instagram_link }}"><i class="fab fa-instagram"></i></a>
-                            {% else %}
-                                <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="https://www.instagram.com"><i class="fab fa-instagram"></i></a>
+                                <a href="{{ member.instagram_link }}" class="btn btn-sm btn-primary rounded-circle"><i class="fab fa-instagram"></i></a>
                             {% endif %}
                         </div>
-                            </div>
-                        </div>
-                    {% endfor %}
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        <!-- Team End -->
+    </div>
+</div>
+<!-- Team End -->
+
+<!-- Extra Mobile Styling -->
+<style>
+@media (max-width: 576px) {
+    h1.display-6 { font-size: 1.7rem; }
+    .feature-item, .team-item { padding: 1.2rem; }
+    .breadcrumb { font-size: 0.85rem; }
+    .text-center.mx-auto.pb-4 h4 { font-size: 1.1rem; }
+    p.small, p.mb-0 { font-size: 0.9rem; }
+}
+</style>
+
 {% endblock %}
