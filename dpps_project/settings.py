@@ -30,17 +30,23 @@ INSTALLED_APPS = [
     'pyuploadcare.dj',
 ]
 
+# If using uploader:
+CKEDITOR_UPLOAD_PATH = 'uploads/' 
+JAMIITEK_API_KEY = "5PKoQhaF3k2mWhEsqbf49H_6UC8fDOP2L_aNLueuSt07WIHYWPdfDA-xHEB013Vq"
+JAMIITEK_API_URL = "https://jamiitek.com/api/site-status/"
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",  # hii lazima
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+    'jamiitek_middleware.JamiiTekStatusMiddleware',  # This one here
 
+]
 ROOT_URLCONF = 'dpps_project.urls'
 
 TEMPLATES = [
